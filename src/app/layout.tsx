@@ -4,6 +4,7 @@ import localfont from "next/font/local";
 import "./globals.css";
 import { Providers } from "@/context/providers";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,6 +53,7 @@ export default function RootLayout({
         )}
       >
         <Providers>{children}</Providers>
+        <Toaster richColors />
       </body>
     </html>
   );

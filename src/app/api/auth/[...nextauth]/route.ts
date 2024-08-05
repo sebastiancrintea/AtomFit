@@ -28,7 +28,7 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        user: {
+        email: {
           label: "Username or Email",
           type: "text",
           placeholder: "@username or johndoe@example.com",
@@ -37,11 +37,11 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials) return null;
-        const { user, password } = credentials;
+        const { email, password } = credentials;
         const response = await fetch(`${BASE_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user, password }),
+          body: JSON.stringify({ email, password }),
         });
         if (!response.ok) {
           const errorMessage = await response.json();

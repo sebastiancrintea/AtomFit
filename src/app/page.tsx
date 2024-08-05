@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoImg from "@/../public/assets/img/Atom-64x64.png";
+import atomFitLogoImg from "@/../public/assets/img/Atom-64x64.png";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoLogIn } from "react-icons/io5";
@@ -12,7 +12,7 @@ export default function LandingPage() {
         <header className="fixed z-50 w-full px-4 py-2 transition-all md:px-12 md:py-4">
           <nav className="flex items-center justify-between">
             <Link href={"/"} className="transition-all hover:brightness-150">
-              <Image alt="AtomFit Logo" src={logoImg} />
+              <Image alt="AtomFit Logo" src={atomFitLogoImg} />
             </Link>
             <Button asChild className="group font-bold">
               <Link href={"/auth/login"}>
@@ -35,12 +35,12 @@ export default function LandingPage() {
             >
               <source src="/assets/video/focus.mp4" type="video/mp4" />
             </video>
-            <section className="absolute z-20 flex size-full flex-col items-center justify-center">
+            <section className="absolute z-20 flex size-full flex-col items-center justify-center text-primary-foreground">
               <div>
                 <h3 className="relative -bottom-1 font-mono text-base uppercase transition-all md:-bottom-4 md:text-2xl xl:-bottom-6 2xl:-bottom-8">
                   Be Fit
                 </h3>
-                <h1 className="text-6xl transition-all md:text-9xl xl:text-[12rem] 2xl:text-[18rem]">
+                <h1 className="text-6xl uppercase transition-all md:text-9xl xl:text-[12rem] 2xl:text-[18rem]">
                   ATOM FIT
                 </h1>
                 <h3 className="relative -top-1 text-end font-mono text-base uppercase transition-all md:-top-4 md:text-2xl xl:-top-6 2xl:-top-8">
