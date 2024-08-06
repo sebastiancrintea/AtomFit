@@ -12,7 +12,7 @@ export default function LandingPage() {
         <header className="fixed z-50 w-full px-4 py-2 transition-all md:px-12 md:py-4">
           <nav className="flex items-center justify-between">
             <Link href={"/"} className="transition-all hover:brightness-150">
-              <Image alt="AtomFit Logo" src={atomFitLogoImg} />
+              <Image alt="AtomFit Logo" src={atomFitLogoImg} priority />
             </Link>
             <Button asChild className="group font-bold">
               <Link href={"/auth/login"}>

@@ -10,7 +10,7 @@ type registerParams = {
   password: string;
 };
 
-export const register = async (body: registerParams) => {
+export const register = async (body: any) => {
   try {
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",

@@ -11,11 +11,11 @@ export default function LoginPage() {
         <section className="w-full space-y-4 p-2">
           <section className="flex items-center justify-center gap-2">
             <Link href={"/"} className="transition-all hover:brightness-150">
-              <Image alt="AtomFit Logo" src={atomFitLogoImg} />
+              <Image alt="AtomFit Logo" src={atomFitLogoImg} priority />
             </Link>
             <h1 className="uppercase">Sign In</h1>
           </section>
-          <div className="mx-auto max-w-[600px]">
+          <div className="mx-auto max-w-[500px]">
             <LoginForm />
           </div>
         </section>

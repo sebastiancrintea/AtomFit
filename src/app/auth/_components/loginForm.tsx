@@ -29,7 +29,7 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "@/actions/auth";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { motion, AnimatePresence, spring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
@@ -63,9 +63,9 @@ export function LoginForm() {
             exit={{ scale: 0 }}
           >
             <Alert variant={"destructive"}>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <ExclamationTriangleIcon className="size-9" />
-                <div>
+                <div className="flex-1">
                   <AlertTitle className="text-xl font-semibold uppercase">
                     <h2 className="text-2xl">Error</h2>
                   </AlertTitle>
@@ -95,6 +95,7 @@ export function LoginForm() {
                   </FormLabel>
                   <FormControl>
                     <Input
+                      type="email"
                       placeholder="example@example.com"
                       {...field}
                       className="text-base"

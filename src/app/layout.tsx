@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 const pixelFont = localfont({
   src: "../../public/fonts/MonoRegular.woff2",
   variable: "--font-pixelFont",
+  preload: false,
 });
 
 export const metadata: Metadata = {
