@@ -1,8 +1,7 @@
 import Image from "next/image";
-import atomFitLogoImg from "@/../public/assets/img/Atom-64x64.png";
 import registerImg from "@/../public/assets/img/registerImg.jpg";
-import Link from "next/link";
 import { RegisterForm } from "../_components/registerForm";
+import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
 
 export default function RegisterPage() {
   return (
@@ -18,9 +17,7 @@ export default function RegisterPage() {
         </section>
         <section className="w-full space-y-4 overflow-auto p-2">
           <section className="flex items-center justify-center gap-2">
-            <Link href={"/"} className="transition-all hover:brightness-150">
-              <Image alt="AtomFit Logo" src={atomFitLogoImg} priority />
-            </Link>
+            <AtomFitLogo />
             <h1 className="uppercase">Sign Up</h1>
           </section>
           <div className="mx-auto max-w-[550px] p-2">
