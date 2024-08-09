@@ -5,12 +5,17 @@ import { toast } from "sonner";
 
 type registerParams = {
   username: string;
-  display_name?: string;
   email: string;
   password: string;
+  goal: string;
+  is_male: boolean;
+  age: number;
+  height: number;
+  weight: number;
+  weight_preference: number;
 };
 
-export const register = async (body: any) => {
+export const register = async (body: registerParams) => {
   try {
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",

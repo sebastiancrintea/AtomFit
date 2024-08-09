@@ -6,7 +6,7 @@ export const registerFormSchema = z
     username: z.string().min(3).max(20),
     email: z.string().email().max(100),
     password: passwordSchema,
-    confirmPassword: passwordSchema,
+    confirmPassword: z.optional(passwordSchema),
     goal: z.enum(["lose", "maintain", "gain"]),
     is_male: z.enum(["male", "female"]),
     age: z

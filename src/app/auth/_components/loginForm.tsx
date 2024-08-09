@@ -66,9 +66,7 @@ export function LoginForm() {
               <div className="flex items-center gap-3">
                 <ExclamationTriangleIcon className="size-9" />
                 <div className="flex-1">
-                  <AlertTitle className="text-xl font-semibold uppercase">
-                    <h2 className="text-2xl">Error</h2>
-                  </AlertTitle>
+                  <h2 className="text-2xl font-semibold uppercase">Error</h2>
                   <AlertDescription className="text-lg font-semibold leading-5">
                     {error}
                   </AlertDescription>

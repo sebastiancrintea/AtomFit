@@ -36,14 +36,10 @@ import { FaFemale, FaMale } from "react-icons/fa";
 
 const steps = [
   {
-    id: "Step 1",
-    title: "Account",
     fields: ["username", "email", "password", "confirmPassword"],
   },
-  { id: "Step 2", title: "Goal", fields: ["goal"] },
+  { fields: ["goal"] },
   {
-    id: "Step 3",
-    title: "Personal Information",
     fields: ["is_male", "age", "height", "weight", "weight_preference"],
   },
 ];
@@ -57,6 +53,8 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
 
   const [currentStep, setCurrentStep] = useState(0);
+  const [previousStep, setPreviousStep] = useState(0);
+  const delta = currentStep - previousStep;
 
   type FieldName = keyof registerFormType;
 
@@ -66,16 +64,21 @@ export function RegisterForm() {
       shouldFocus: true,
     });
     if (!output) return;
+
     if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
-        await form.handleSubmit(onSubmit)();
-      }
+      setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
+    }
+    if (currentStep === steps.length - 1) {
+      await form.handleSubmit(onSubmit)();
     }
   };
 
   const prev = () => {
-    if (currentStep > 0) setCurrentStep((step) => step - 1);
+    if (currentStep > 0) {
+      setPreviousStep(currentStep);
+      setCurrentStep((step) => step - 1);
+    }
   };
 
   const { mutateAsync, isPending } = useMutation({
@@ -83,8 +86,24 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (values: registerFormType) => {
-    console.log(values);
+    delete values.confirmPassword;
+
+    const body = {
+      ...values,
+      is_male: values.is_male === "male" ? true : false,
+      age: parseInt(values.age),
+      height: parseInt(values.height),
+      weight: parseFloat(values.weight),
+      weight_preference: parseFloat(values.weight_preference),
+    };
+    const response = await mutateAsync(body);
+    if (response.error) {
+      setError(response.error);
+      return setTimeout(() => setError(null), 10000);
+    }
+    console.log(body);
   };
+
   return (
     <>
       <AnimatePresence mode="popLayout">
@@ -101,9 +120,7 @@ export function RegisterForm() {
               <div className="flex items-center gap-3">
                 <ExclamationTriangleIcon className="size-9" />
                 <div className="flex-1">
-                  <AlertTitle className="text-xl font-semibold uppercase">
-                    <h2 className="text-2xl">Error</h2>
-                  </AlertTitle>
+                  <h2 className="text-2xl font-semibold uppercase">Error</h2>
                   <AlertDescription className="text-lg font-semibold leading-5">
                     {error}
                   </AlertDescription>
@@ -119,380 +136,404 @@ export function RegisterForm() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("test");
               next();
             }}
             className="w-full space-y-2"
           >
             {currentStep === 0 && (
               <>
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        Username
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="@johnDoe"
-                          {...field}
-                          className="text-base"
-                        />
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        Email
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="example@example.com"
-                          {...field}
-                          className="text-base"
-                        />
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel
-                        htmlFor="password"
-                        className="text-2xl font-semibold"
-                      >
-                        Password
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                <motion.div
+                  initial={{ x: delta >= 0 ? "50%" : "-50%", scale: 0 }}
+                  animate={{ x: 0, scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          Username
+                        </FormLabel>
+                        <FormControl>
                           <Input
-                            id="password"
+                            placeholder="@johnDoe"
                             {...field}
-                            placeholder="********"
-                            type={isVisible ? "text" : "password"}
-                            className="pr-10 text-base"
+                            className="text-base"
                           />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            size={"icon"}
-                            className="absolute bottom-0 right-0"
-                            onClick={() => setIsVisible(!isVisible)}
-                          >
-                            {isVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel
-                        htmlFor="cpassword"
-                        className="text-2xl font-semibold"
-                      >
-                        Confirm Password
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          Email
+                        </FormLabel>
+                        <FormControl>
                           <Input
-                            id="cpassword"
+                            type="email"
+                            placeholder="example@example.com"
                             {...field}
-                            placeholder="********"
-                            type={isVisible ? "text" : "password"}
-                            className="pr-10 text-base"
+                            className="text-base"
                           />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            size={"icon"}
-                            className="absolute bottom-0 right-0"
-                            onClick={() => setIsVisible(!isVisible)}
-                          >
-                            {isVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel
+                          htmlFor="password"
+                          className="text-2xl font-semibold"
+                        >
+                          Password
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              id="password"
+                              {...field}
+                              placeholder="********"
+                              type={isVisible ? "text" : "password"}
+                              className="pr-10 text-base"
+                            />
+                            <Button
+                              type="button"
+                              variant={"ghost"}
+                              size={"icon"}
+                              className="absolute bottom-0 right-0"
+                              onClick={() => setIsVisible(!isVisible)}
+                            >
+                              {isVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel
+                          htmlFor="cpassword"
+                          className="text-2xl font-semibold"
+                        >
+                          Confirm Password
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              id="cpassword"
+                              {...field}
+                              placeholder="********"
+                              type={isVisible ? "text" : "password"}
+                              className="pr-10 text-base"
+                            />
+                            <Button
+                              type="button"
+                              variant={"ghost"}
+                              size={"icon"}
+                              className="absolute bottom-0 right-0"
+                              onClick={() => setIsVisible(!isVisible)}
+                            >
+                              {isVisible ? <EyeOpenIcon /> : <EyeNoneIcon />}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
               </>
             )}
             {currentStep === 1 && (
               <>
-                <FormField
-                  control={form.control}
-                  name="goal"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        What&apos;s your goal ?
-                      </FormLabel>
-                      <FormControl>
-                        <ul className="space-y-1">
-                          <li>
-                            <Button
-                              type="button"
-                              onClick={() => field.onChange("lose")}
-                              variant={
-                                field.value === "lose" ? "default" : "outline"
-                              }
-                              className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
-                            >
-                              Lose Weight
-                            </Button>
-                          </li>
-                          <li>
-                            <Button
-                              type="button"
-                              onClick={() => field.onChange("maintain")}
-                              variant={
-                                field.value === "maintain"
-                                  ? "default"
-                                  : "outline"
-                              }
-                              className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
-                            >
-                              Maintain Weight
-                            </Button>
-                          </li>
-                          <li>
-                            <Button
-                              type="button"
-                              onClick={() => field.onChange("gain")}
-                              variant={
-                                field.value === "gain" ? "default" : "outline"
-                              }
-                              className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
-                            >
-                              Gain Weight
-                            </Button>
-                          </li>
-                        </ul>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
+                <motion.div
+                  initial={{ x: delta >= 0 ? "50%" : "-50%", scale: 0 }}
+                  animate={{ x: 0, scale: 1 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                >
+                  <FormField
+                    control={form.control}
+                    name="goal"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          What&apos;s your goal ?
+                        </FormLabel>
+                        <FormControl>
+                          <ul className="space-y-2">
+                            <li>
+                              <Button
+                                type="button"
+                                onClick={() => field.onChange("lose")}
+                                variant={
+                                  field.value === "lose" ? "default" : "outline"
+                                }
+                                className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              >
+                                Lose Weight
+                              </Button>
+                            </li>
+                            <li>
+                              <Button
+                                type="button"
+                                onClick={() => field.onChange("maintain")}
+                                variant={
+                                  field.value === "maintain"
+                                    ? "default"
+                                    : "outline"
+                                }
+                                className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              >
+                                Maintain Weight
+                              </Button>
+                            </li>
+                            <li>
+                              <Button
+                                type="button"
+                                onClick={() => field.onChange("gain")}
+                                variant={
+                                  field.value === "gain" ? "default" : "outline"
+                                }
+                                className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              >
+                                Gain Weight
+                              </Button>
+                            </li>
+                          </ul>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
               </>
             )}
             {currentStep === 2 && (
               <>
-                <FormField
-                  control={form.control}
-                  name="is_male"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        Gender
-                      </FormLabel>
-                      <FormControl>
-                        <ul className="flex w-full items-center gap-2">
-                          <li className="w-full">
+                <motion.div
+                  initial={{ x: delta >= 0 ? "50%" : "-50%", scale: 0 }}
+                  animate={{ x: 0, scale: 1 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                >
+                  <FormField
+                    control={form.control}
+                    name="is_male"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          Gender
+                        </FormLabel>
+                        <FormControl>
+                          <ul className="flex w-full items-center gap-2">
+                            <li className="w-full">
+                              <Button
+                                type="button"
+                                onClick={() => field.onChange("male")}
+                                variant={
+                                  field.value === "male" ? "default" : "outline"
+                                }
+                                className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              >
+                                <FaMale />
+                                Male
+                              </Button>
+                            </li>
+                            <li className="w-full">
+                              <Button
+                                type="button"
+                                onClick={() => field.onChange("female")}
+                                variant={
+                                  field.value === "female"
+                                    ? "default"
+                                    : "outline"
+                                }
+                                className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              >
+                                <FaFemale />
+                                Female
+                              </Button>
+                            </li>
+                          </ul>
+                        </FormControl>
+                        <FormDescription className="text-sm">
+                          Please select which sex we should use to calculate
+                          your <span className="underline">calorie</span> needs.
+                        </FormDescription>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="age"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel
+                          htmlFor="age"
+                          className="text-2xl font-semibold"
+                        >
+                          Age
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              id="age"
+                              inputMode="numeric"
+                              min={16}
+                              max={90}
+                              type="number"
+                              placeholder="18"
+                              {...field}
+                              className="pr-20 text-base"
+                            />
                             <Button
                               type="button"
-                              onClick={() => field.onChange("male")}
-                              variant={
-                                field.value === "male" ? "default" : "outline"
-                              }
-                              className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              variant={"ghost"}
+                              className="absolute bottom-0 right-0"
                             >
-                              <FaMale />
-                              Male
+                              years
                             </Button>
-                          </li>
-                          <li className="w-full">
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="height"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel
+                          htmlFor="height"
+                          className="text-2xl font-semibold"
+                        >
+                          Height
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              id="height"
+                              inputMode="numeric"
+                              min={100}
+                              max={300}
+                              type="number"
+                              placeholder="170"
+                              {...field}
+                              className="pr-16 text-base"
+                            />
                             <Button
                               type="button"
-                              onClick={() => field.onChange("female")}
-                              variant={
-                                field.value === "female" ? "default" : "outline"
-                              }
-                              className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+                              variant={"ghost"}
+                              className="absolute bottom-0 right-0"
                             >
-                              <FaFemale />
-                              Female
+                              cm
                             </Button>
-                          </li>
-                        </ul>
-                      </FormControl>
-                      <FormDescription className="text-sm">
-                        Please select which sex we should use to calculate your{" "}
-                        <span className="underline">calorie</span> needs.
-                      </FormDescription>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="age"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel
-                        htmlFor="age"
-                        className="text-2xl font-semibold"
-                      >
-                        Age
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            id="age"
-                            inputMode="numeric"
-                            min={16}
-                            max={90}
-                            type="number"
-                            placeholder="18"
-                            {...field}
-                            className="pr-20 text-base"
-                          />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            className="absolute bottom-0 right-0"
-                          >
-                            years
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="height"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel
-                        htmlFor="height"
-                        className="text-2xl font-semibold"
-                      >
-                        Height
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            id="height"
-                            inputMode="numeric"
-                            min={100}
-                            max={300}
-                            type="number"
-                            placeholder="170"
-                            {...field}
-                            className="pr-16 text-base"
-                          />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            className="absolute bottom-0 right-0"
-                          >
-                            cm
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="weight"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        Weight
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            step={"0.1"}
-                            inputMode="numeric"
-                            min={30}
-                            max={300}
-                            placeholder="70"
-                            type="number"
-                            {...field}
-                            className="pr-16 text-base"
-                          />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            className="absolute bottom-0 right-0"
-                          >
-                            kg
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="weight_preference"
-                  render={({ field }) => (
-                    <FormItem className="space-y-0">
-                      <FormLabel className="text-2xl font-semibold">
-                        Weight Goal
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            step={"0.1"}
-                            inputMode="numeric"
-                            min={30}
-                            max={300}
-                            type="number"
-                            placeholder="70"
-                            {...field}
-                            className="pr-16 text-base"
-                          />
-                          <Button
-                            type="button"
-                            variant={"ghost"}
-                            className="absolute bottom-0 right-0"
-                          >
-                            kg
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-base" />
-                    </FormItem>
-                  )}
-                />
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="weight"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          Weight
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              step={"0.1"}
+                              inputMode="numeric"
+                              min={30}
+                              max={300}
+                              placeholder="70"
+                              type="number"
+                              {...field}
+                              className="pr-16 text-base"
+                            />
+                            <Button
+                              type="button"
+                              variant={"ghost"}
+                              className="absolute bottom-0 right-0"
+                            >
+                              kg
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="weight_preference"
+                    render={({ field }) => (
+                      <FormItem className="space-y-0">
+                        <FormLabel className="text-2xl font-semibold">
+                          Weight Goal
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              step={"0.1"}
+                              inputMode="numeric"
+                              min={30}
+                              max={300}
+                              type="number"
+                              placeholder="70"
+                              {...field}
+                              className="pr-16 text-base"
+                            />
+                            <Button
+                              type="button"
+                              variant={"ghost"}
+                              className="absolute bottom-0 right-0"
+                            >
+                              kg
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-base" />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
               </>
             )}
 
             <section className="flex justify-between">
-              {currentStep > 0 && (
-                <Button type="button" onClick={prev}>
-                  <FaArrowLeft />
-                </Button>
-              )}
               <Button
                 type="button"
-                className={`ml-auto ${currentStep === steps.length - 1 && "hidden"}`}
+                variant={"outline"}
+                onClick={prev}
+                disabled={currentStep === 0}
+              >
+                <FaArrowLeft />
+              </Button>
+
+              <Button
+                type="button"
+                className={`${currentStep === steps.length - 1 && "hidden"} transition-all`}
                 onClick={next}
               >
                 <FaArrowRight />
