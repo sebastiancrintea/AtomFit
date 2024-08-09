@@ -19,10 +19,10 @@ export function LaptopNavigaton() {
   const pathname = usePathname();
   return (
     <>
-      <TooltipProvider>
-        <section className="flex h-full max-w-64 flex-col justify-between rounded-xl bg-secondary/25 p-4">
+      <section className="flex h-full max-w-64 flex-col justify-between rounded-xl bg-secondary/25 p-4">
+        <TooltipProvider>
           <div>
-            <div className="mb-12 transition-all lg:ml-4">
+            <div className="mb-12 transition-all xl:ml-4">
               <Link
                 href={"/home"}
                 className="flex transition-all hover:brightness-150"
@@ -38,7 +38,7 @@ export function LaptopNavigaton() {
                     <Button
                       asChild
                       variant={"ghost"}
-                      className="h-auto text-left text-2xl transition-all lg:justify-start"
+                      className="h-auto text-left text-2xl transition-all xl:justify-start"
                     >
                       <Link
                         href={link.path}
@@ -51,7 +51,7 @@ export function LaptopNavigaton() {
                         ) : (
                           <link.icon size={32} />
                         )}
-                        <span className="hidden lg:block">{link.title}</span>
+                        <span className="hidden xl:block">{link.title}</span>
                       </Link>
                     </Button>
                   </TooltipTrigger>
@@ -103,8 +103,8 @@ export function LaptopNavigaton() {
               Profile
             </TooltipContent>
           </Tooltip>
-        </section>
-      </TooltipProvider>
+        </TooltipProvider>
+      </section>
     </>
   );
 }
