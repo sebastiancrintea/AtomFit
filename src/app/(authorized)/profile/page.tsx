@@ -9,6 +9,8 @@ import { SlNotebook } from "react-icons/sl";
 import { GiHotMeal, GiMuscleUp } from "react-icons/gi";
 import { FaDumbbell } from "react-icons/fa6";
 import { SettingsSheet } from "./_components/settings-sheet";
+import { FaUserFriends } from "react-icons/fa";
+import Link from "next/link";
 
 export default function ProfilePage() {
   return (
@@ -27,7 +29,14 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
-        <SettingsSheet />
+        <div className="space-x-1">
+          <Button size={"icon"} variant={"ghost"} asChild>
+            <Link href={"/friends"}>
+              <FaUserFriends size={32} />
+            </Link>
+          </Button>
+          <SettingsSheet />
+        </div>
       </header>
       <Tabs defaultValue="info">
         <TabsList className="mb-2 h-auto">
