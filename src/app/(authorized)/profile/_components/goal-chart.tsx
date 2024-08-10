@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import {
   Label,
   PolarGrid,
@@ -18,6 +17,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import { Button } from "@/components/ui/button";
+import { GiWeightScale } from "react-icons/gi";
+import { UpdateWeightDialog } from "./update-current-weight";
 
 const chartData = [
   { goal: "lose", lost: 14, fill: "var(--color-goal)", start: 90, finish: 75 },
@@ -97,8 +99,9 @@ export function GoalChart() {
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="justify-center pb-2">
+      <CardFooter className="flex-col justify-center gap-1 pb-2">
         <h4>Current: {chartData[0].start - chartData[0].lost} kg</h4>
+        <UpdateWeightDialog />
       </CardFooter>
     </Card>
   );

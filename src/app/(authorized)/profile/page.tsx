@@ -1,8 +1,15 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { TbSettings } from "react-icons/tb";
 import { GoalChart } from "./_components/goal-chart";
+import { UpdateGoals } from "./_components/update-goals";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TabsContent } from "@radix-ui/react-tabs";
+import { SlNotebook } from "react-icons/sl";
+import { GiHotMeal, GiMuscleUp } from "react-icons/gi";
+import { FaDumbbell } from "react-icons/fa6";
+import { SettingsSheet } from "./_components/settings-sheet";
+
 export default function ProfilePage() {
   return (
     <>
@@ -20,36 +27,93 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
-        <Button>
-          <TbSettings size={32} />
-        </Button>
+        <SettingsSheet />
       </header>
-      <section className="flex w-full flex-col gap-2 lg:flex-row">
-        <GoalChart />
-        <div className="w-full space-y-2">
-          <h2>Goals</h2>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-xl font-normal">Weight</h3>
-              <Badge className="select-none text-xl transition-all md:text-2xl">
-                75 kg
-              </Badge>
+      <Tabs defaultValue="info">
+        <TabsList className="mb-2 h-auto">
+          <TabsTrigger value="info" className="font-mono text-xl font-semibold">
+            INFO
+          </TabsTrigger>
+          <TabsTrigger
+            value="items"
+            className="font-mono text-xl font-semibold"
+          >
+            ITEMS
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="info">
+          <section className="flex w-full flex-col gap-2 lg:flex-row">
+            <GoalChart />
+            <div className="w-full space-y-2">
+              <h2>Goals</h2>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-normal">Weight</h3>
+                  <Badge className="select-none text-xl transition-all md:text-2xl">
+                    75 kg
+                  </Badge>
+                </div>
+                <span className="text-muted-foreground">
+                  Lose 0.5 kg per week
+                </span>
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-normal">Daily calories</h3>
+                  <Badge className="select-none text-xl transition-all md:text-2xl">
+                    1,980 cal
+                  </Badge>
+                </div>
+                <span className="text-muted-foreground">
+                  Carbs 248g | Fat 66g | Protein 99g
+                </span>
+              </div>
+              <UpdateGoals />
             </div>
-            <span className="text-muted-foreground">Lose 0.5 kg per week</span>
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-xl font-normal">Daily calories</h3>
-              <Badge className="select-none text-xl transition-all md:text-2xl">
-                1,980 cal
-              </Badge>
-            </div>
-            <span className="text-muted-foreground">
-              Carbs 248g | Fat 66g | Protein 99g
-            </span>
-          </div>
-        </div>
-      </section>
+          </section>
+        </TabsContent>
+
+        <TabsContent value="items">
+          <ul className="space-y-1">
+            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
+              <div className="flex items-center gap-2">
+                <GiHotMeal size={32} />
+                <h3>
+                  <span>0</span> Meals
+                </h3>
+              </div>
+              <Button className="font-semibold md:text-lg">CREATE</Button>
+            </li>
+            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
+              <div className="flex items-center gap-2">
+                <SlNotebook size={32} />
+                <h3>
+                  <span>0</span> Recipes
+                </h3>
+              </div>
+              <Button className="font-semibold md:text-lg">CREATE</Button>
+            </li>
+            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
+              <div className="flex items-center gap-2">
+                <FaDumbbell size={32} />
+                <h3>
+                  <span>0</span> Exercises
+                </h3>
+              </div>
+              <Button className="font-semibold md:text-lg">CREATE</Button>
+            </li>
+            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
+              <div className="flex items-center gap-2">
+                <GiMuscleUp size={32} />
+                <h3>
+                  <span>0</span> Workouts
+                </h3>
+              </div>
+              <Button className="font-semibold md:text-lg">CREATE</Button>
+            </li>
+          </ul>
+        </TabsContent>
+      </Tabs>
     </>
   );
 }
