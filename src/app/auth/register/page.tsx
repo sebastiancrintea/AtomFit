@@ -2,6 +2,11 @@ import Image from "next/image";
 import registerImg from "@/../public/assets/img/registerImg.jpg";
 import { RegisterForm } from "../_components/registerForm";
 import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register",
+};
 
 export default function RegisterPage() {
   return (

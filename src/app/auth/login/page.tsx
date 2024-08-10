@@ -2,6 +2,11 @@ import Image from "next/image";
 import { LoginForm } from "../_components/loginForm";
 import loginImg from "@/../public/assets/img/loginImg.jpg";
 import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 export default function LoginPage() {
   return (

@@ -15,7 +15,10 @@ const pixelFont = localfont({
 });
 
 export const metadata: Metadata = {
-  title: "AtomFit",
+  title: {
+    default: "AtomFit",
+    template: "%s | AtomFit",
+  },
   description:
     "AtomFit is more than just a fitness app, it's your personal trainer, nutritionist, and motivator all in one.",
   authors: [

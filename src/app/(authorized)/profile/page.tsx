@@ -11,6 +11,11 @@ import { FaDumbbell } from "react-icons/fa6";
 import { SettingsSheet } from "./_components/settings-sheet";
 import { FaUserFriends } from "react-icons/fa";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 export default function ProfilePage() {
   return (
