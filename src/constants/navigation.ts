@@ -1,5 +1,6 @@
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { MdExplore, MdOutlineExplore } from "react-icons/md";
+import { TbSquareRoundedPlusFilled, TbSquareRoundedPlus } from "react-icons/tb";
 
 export const links = [
   {
@@ -7,6 +8,12 @@ export const links = [
     title: "Home",
     iconFill: GoHomeFill,
     icon: GoHome,
+  },
+  {
+    path: "/create",
+    title: "Create",
+    iconFill: TbSquareRoundedPlusFilled,
+    icon: TbSquareRoundedPlus,
   },
   {
     path: "/explore",
