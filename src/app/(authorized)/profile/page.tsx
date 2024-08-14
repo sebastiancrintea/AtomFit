@@ -12,6 +12,7 @@ import { SettingsSheet } from "./_components/settings-sheet";
 import { FaUserFriends } from "react-icons/fa";
 import Link from "next/link";
 import { Metadata } from "next";
+import { CreateExerciseSheet } from "@/components/shared/exercise/create-exercise-sheet";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -114,7 +115,9 @@ export default function ProfilePage() {
                   <span>0</span> Exercises
                 </h3>
               </div>
-              <Button className="font-semibold md:text-lg">CREATE</Button>
+              <CreateExerciseSheet>
+                <Button className="font-semibold md:text-lg">CREATE</Button>
+              </CreateExerciseSheet>
             </li>
             <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
               <div className="flex items-center gap-2">
