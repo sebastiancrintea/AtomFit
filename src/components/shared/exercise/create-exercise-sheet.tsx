@@ -17,7 +17,7 @@ export function CreateExerciseSheet({ children }: Readonly<Props>) {
     <>
       <Sheet>
         <SheetTrigger asChild>{children}</SheetTrigger>
-        <SheetContent>
+        <SheetContent className="overflow-auto md:min-w-[500px] lg:min-w-[700px]">
           <SheetHeader>
             <SheetTitle className="md:text-2xl">
               Create a new Exercise

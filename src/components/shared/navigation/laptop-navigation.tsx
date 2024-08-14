@@ -22,10 +22,10 @@ export function LaptopNavigaton() {
       <section className="flex h-full max-w-64 flex-col justify-between rounded-xl bg-secondary/25 p-4">
         <TooltipProvider>
           <div>
-            <div className="mb-12 transition-all xl:ml-4">
+            <div className="mb-12 flex justify-center transition-all xl:ml-4 xl:justify-start">
               <Link
                 href={"/home"}
-                className="flex transition-all hover:brightness-150"
+                className="transition-all hover:brightness-150"
               >
                 <Image alt="AtomFit Logo" src={atomFitLogoImg} priority />
               </Link>

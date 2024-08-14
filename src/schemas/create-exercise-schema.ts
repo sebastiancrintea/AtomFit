@@ -1,28 +1,22 @@
 import { z } from "zod";
 
-export enum MuscleGroups {
-  traps = "traps",
-  lats = "lats",
-  lower_back = "lower_back",
-  romboids = "romboids",
-
-  abs = "abs",
-
-  biceps = "biceps",
-  triceps = "triceps",
-  forearms = "forearms",
-
-  neck = "neck",
-
-  chest = "chest",
-
-  shoulders = "shoulders",
-
-  glutes = "glutes",
-  quads = "quads",
-  hamstrings = "hamstrings",
-  calves = "calves",
-}
+export const MuscleGroups = [
+  "traps",
+  "lats",
+  "lower_back",
+  "romboids",
+  "abs",
+  "biceps",
+  "triceps",
+  "forearms",
+  "neck",
+  "chest",
+  "shoulders",
+  "glutes",
+  "quads",
+  "hamstrings",
+  "calves",
+] as const;
 
 export const createExerciseSchema = z.object({
   name: z.string().min(2).max(50),
@@ -30,7 +24,7 @@ export const createExerciseSchema = z.object({
   video_url: z.string().url(),
   type: z.enum(["repeats", "duration"]),
   muscles: z
-    .array(z.nativeEnum(MuscleGroups))
+    .array(z.enum(MuscleGroups))
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),

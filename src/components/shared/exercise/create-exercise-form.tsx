@@ -15,6 +15,7 @@ import {
   createExerciseDefault,
   createExerciseSchema,
   createExerciseType,
+  MuscleGroups,
 } from "@/schemas/create-exercise-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -22,6 +23,17 @@ import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { RxLapTimer } from "react-icons/rx";
 import { TiArrowRepeatOutline } from "react-icons/ti";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { FaCheck } from "react-icons/fa";
+import { Badge } from "@/components/ui/badge";
 
 export function CreateExerciseForm() {
   const form = useForm<createExerciseType>({
@@ -145,14 +157,52 @@ export function CreateExerciseForm() {
             render={({ field }) => (
               <FormItem className="space-y-0">
                 <FormLabel className="text-2xl font-semibold">
-                  Tutorial YT Video
+                  Muscle Group
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="https://www.youtube.com/watch?v=d1YBv2mWll0"
-                    className="text-base"
-                  />
+                  <Command className="border-2">
+                    <CommandInput placeholder="Search a muscle group" />
+                    <CommandList>
+                      <CommandEmpty>No results found.</CommandEmpty>
+                      <CommandGroup heading="Muscle Group">
+                        <ScrollArea className="h-[200px]">
+                          {MuscleGroups.map((key, index) => (
+                            <CommandItem
+                              key={index}
+                              className="flex items-center justify-between font-mono text-base uppercase"
+                              onSelect={() => {
+                                if (!field.value.includes(key)) {
+                                  field.onChange([...field.value, key]);
+                                } else {
+                                  const current = field.value.filter(
+                                    (value) => key !== value,
+                                  );
+                                  field.onChange([...current]);
+                                }
+                              }}
+                            >
+                              {key}
+                              <FaCheck
+                                className={`opacity-0 transition-all ${field.value.includes(key) && "opacity-100"}`}
+                              />
+                            </CommandItem>
+                          ))}
+                        </ScrollArea>
+                      </CommandGroup>
+                    </CommandList>
+                    <div className="flex flex-wrap items-center gap-1 p-2">
+                      {field.value.length > 0 &&
+                        field.value.map((value, index) => (
+                          <Badge
+                            key={index}
+                            variant={"secondary"}
+                            className="font-mono text-base uppercase"
+                          >
+                            {value}
+                          </Badge>
+                        ))}
+                    </div>
+                  </Command>
                 </FormControl>
                 <FormMessage className="text-base" />
               </FormItem>
