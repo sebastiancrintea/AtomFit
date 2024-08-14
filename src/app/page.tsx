@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoLogIn } from "react-icons/io5";
-import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
+import { AtomFitLogo } from "@/components/shared/atom-fit-logo";
 
 export default function LandingPage() {
   return (

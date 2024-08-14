@@ -1,4 +1,4 @@
-import { WorkoutCard } from "./_components/workoutCard";
+import { WorkoutCard } from "./_components/workout-card";
 
 export default function WorkoutPage() {
   return (

@@ -1,7 +1,6 @@
-import { NavigateBackButton } from "@/components/shared/NavigateBackButton";
+import { NavigateBackButton } from "@/components/shared/navigate-back";
 import { Button } from "@/components/ui/button";
-import { MdDragIndicator } from "react-icons/md";
-import { ExerciseCard } from "./_components/exerciseCard";
+import { ExerciseCard } from "./_components/exercise-card";
 
 const exercises = [
   {

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { LoginForm } from "../_components/loginForm";
+import { LoginForm } from "../_components/login-form";
 import loginImg from "@/../public/assets/img/loginImg.jpg";
-import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
+import { AtomFitLogo } from "@/components/shared/atom-fit-logo";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import registerImg from "@/../public/assets/img/registerImg.jpg";
-import { RegisterForm } from "../_components/registerForm";
-import { AtomFitLogo } from "@/components/shared/AtomFitLogo";
+import { RegisterForm } from "../_components/register-form";
+import { AtomFitLogo } from "@/components/shared/atom-fit-logo";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

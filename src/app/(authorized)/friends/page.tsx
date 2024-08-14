@@ -1,4 +1,4 @@
-import { NavigateBackButton } from "@/components/shared/NavigateBackButton";
+import { NavigateBackButton } from "@/components/shared/navigate-back";
 import {
   AlertDialog,
   AlertDialogAction,
