@@ -10,6 +10,12 @@ export const links = [
     icon: GoHome,
   },
   {
+    path: "/workout",
+    title: "Workout",
+    iconFill: GoHomeFill,
+    icon: GoHome,
+  },
+  {
     path: "/create",
     title: "Create",
     iconFill: TbSquareRoundedPlusFilled,
