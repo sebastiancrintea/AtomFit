@@ -13,6 +13,7 @@ import { FaUserFriends } from "react-icons/fa";
 import Link from "next/link";
 import { Metadata } from "next";
 import { CreateExerciseSheet } from "@/components/shared/exercise/create-exercise-sheet";
+import { CreateWorkoutSheet } from "@/components/shared/workout/create-workout-sheet";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -126,7 +127,9 @@ export default function ProfilePage() {
                   <span>0</span> Workouts
                 </h3>
               </div>
-              <Button className="font-semibold md:text-lg">CREATE</Button>
+              <CreateWorkoutSheet>
+                <Button className="font-semibold md:text-lg">CREATE</Button>
+              </CreateWorkoutSheet>
             </li>
           </ul>
         </TabsContent>
