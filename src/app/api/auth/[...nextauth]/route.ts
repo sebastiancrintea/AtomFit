@@ -10,7 +10,9 @@ const refreshToken = async (token: any) => {
   );
   if (response.ok) {
     const data = await response.json();
-    cookies().set("access_token", data.access_token);
+    cookies().set("access_token", data.access_token, {
+      maxAge: data.access_expire * 60,
+    });
 
     return {
       ...token,
@@ -59,7 +61,9 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        cookies().set("access_token", user.access_token);
+        cookies().set("access_token", user.access_token, {
+          maxAge: user.access_expire * 60,
+        });
 
         token.access_token = user.access_token;
         token.refresh_token = user.refresh_token;
@@ -79,7 +83,7 @@ const handler = NextAuth({
           session.user = await userData.json();
         }
       }
-      console.log(session);
+      // console.log(session);
       return session;
     },
   },

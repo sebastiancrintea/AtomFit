@@ -34,6 +34,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FaCheck } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import { IoIosCloseCircle } from "react-icons/io";
 
 export function CreateExerciseForm() {
   const form = useForm<createExerciseType>({
@@ -47,7 +48,8 @@ export function CreateExerciseForm() {
 
   const onSubmit = async (values: createExerciseType) => {
     const data = await mutateAsync(values);
-    console.log(values);
+    if (data.error) return;
+    form.reset();
   };
   return (
     <>
@@ -196,9 +198,19 @@ export function CreateExerciseForm() {
                           <Badge
                             key={index}
                             variant={"secondary"}
-                            className="font-mono text-base uppercase"
+                            className="cursor-default select-none gap-1 font-mono text-base uppercase"
                           >
-                            {value}
+                            <span>{value}</span>
+                            <IoIosCloseCircle
+                              size={24}
+                              className="cursor-pointer transition-all hover:brightness-75"
+                              onClick={() => {
+                                const current = field.value.filter(
+                                  (key) => key !== value,
+                                );
+                                field.onChange([...current]);
+                              }}
+                            />
                           </Badge>
                         ))}
                     </div>
