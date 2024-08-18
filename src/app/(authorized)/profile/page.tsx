@@ -14,6 +14,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { CreateExerciseSheet } from "@/components/shared/exercise/create-exercise-sheet";
 import { CreateWorkoutSheet } from "@/components/shared/workout/create-workout-sheet";
+import { CreateWorkoutDrawer } from "@/components/shared/workout/create-workout-drawer";
+import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exercise-drawer";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -116,9 +118,16 @@ export default function ProfilePage() {
                   <span>0</span> Exercises
                 </h3>
               </div>
-              <CreateExerciseSheet>
-                <Button className="font-semibold md:text-lg">CREATE</Button>
-              </CreateExerciseSheet>
+              <div className="hidden md:block">
+                <CreateExerciseSheet>
+                  <Button className="font-semibold md:text-lg">CREATE</Button>
+                </CreateExerciseSheet>
+              </div>
+              <div className="md:hidden">
+                <CreateExerciseDrawer>
+                  <Button className="font-semibold md:text-lg">CREATE</Button>
+                </CreateExerciseDrawer>
+              </div>
             </li>
             <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
               <div className="flex items-center gap-2">
@@ -127,9 +136,16 @@ export default function ProfilePage() {
                   <span>0</span> Workouts
                 </h3>
               </div>
-              <CreateWorkoutSheet>
-                <Button className="font-semibold md:text-lg">CREATE</Button>
-              </CreateWorkoutSheet>
+              <div className="hidden md:block">
+                <CreateWorkoutSheet>
+                  <Button className="font-semibold md:text-lg">CREATE</Button>
+                </CreateWorkoutSheet>
+              </div>
+              <div className="md:hidden">
+                <CreateWorkoutDrawer>
+                  <Button className="font-semibold md:text-lg">CREATE</Button>
+                </CreateWorkoutDrawer>
+              </div>
             </li>
           </ul>
         </TabsContent>
