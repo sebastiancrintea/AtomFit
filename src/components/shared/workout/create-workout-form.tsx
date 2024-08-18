@@ -10,19 +10,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  createExerciseDefault,
-  createExerciseSchema,
-  createExerciseType,
-  MuscleGroups,
-} from "@/schemas/create-exercise-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
-import { RxLapTimer } from "react-icons/rx";
-import { TiArrowRepeatOutline } from "react-icons/ti";
 import {
   Command,
   CommandEmpty,
@@ -35,21 +26,109 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { FaCheck } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import { IoIosCloseCircle } from "react-icons/io";
+import {
+  createWorkoutDefault,
+  createWorkoutSchema,
+  createWorkoutType,
+} from "@/schemas/create-workout-schema";
+
+const exercises = [
+  {
+    id: 1,
+    name: "pushups",
+    description: "dsamjdwnja",
+    video_url: "sadawdaw",
+    type: "duration",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 2,
+    name: "snajdnjaw",
+    description: "sanjkdbawjkdjaw",
+    video_url: "sadawdaw",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 3,
+    name: "legs something",
+    description: "sbahjdbhjwabdjhkaw",
+    video_url: "snahkdbhjkwada",
+    type: "duration",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+  {
+    id: 4,
+    name: "thnig",
+    description: "sanjkdbjadjaw",
+    video_url: "sanjkdawhdwa",
+    type: "repeats",
+    muscles: ["chest", "traps"],
+  },
+];
 
 export function CreateWorkoutForm() {
-  const form = useForm<createExerciseType>({
-    resolver: zodResolver(createExerciseSchema),
-    defaultValues: createExerciseDefault,
+  const form = useForm<createWorkoutType>({
+    resolver: zodResolver(createWorkoutSchema),
+    defaultValues: createWorkoutDefault,
   });
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createExercise,
   });
 
-  const onSubmit = async (values: createExerciseType) => {
-    const data = await mutateAsync(values);
-    if (data.error) return;
-    form.reset();
+  const onSubmit = async (values: createWorkoutType) => {
+    // const data = await mutateAsync();
+    // if (data.error) return;
+    // form.reset();
   };
   return (
     <>
@@ -67,7 +146,7 @@ export function CreateWorkoutForm() {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="Push-Ups"
+                    placeholder="Chest Beginner"
                     className="text-base"
                   />
                 </FormControl>
@@ -77,149 +156,114 @@ export function CreateWorkoutForm() {
           />
           <FormField
             control={form.control}
-            name="description"
+            name="exercises"
             render={({ field }) => (
               <FormItem className="space-y-0">
                 <FormLabel className="text-2xl font-semibold">
-                  Instructions
+                  Exercises
                 </FormLabel>
                 <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="Lay prone on the ground with arms supporting your body."
-                    className="text-base"
-                  />
+                  <>
+                    <Command className="border-2">
+                      <CommandInput placeholder="Search a muscle group" />
+                      <CommandList>
+                        <CommandEmpty>No results found.</CommandEmpty>
+                        <CommandGroup heading="Muscle Group">
+                          <ScrollArea className="h-[200px]">
+                            {exercises.map((exercise, index) => (
+                              <CommandItem
+                                key={index}
+                                className="flex items-center justify-between font-mono text-base uppercase"
+                                onSelect={() => {
+                                  if (
+                                    field.value.some(
+                                      (value) => value.id === exercise.id,
+                                    )
+                                  ) {
+                                    const current = field.value.filter(
+                                      (value) => value.id !== exercise.id,
+                                    );
+                                    field.onChange([...current]);
+                                  } else {
+                                    field.onChange([...field.value, exercise]);
+                                  }
+                                  // console.log(form.getValues("exercises"));
+                                }}
+                              >
+                                {exercise.name}
+                                <FaCheck
+                                  className={`opacity-0 transition-all ${
+                                    field.value.some(
+                                      (value) => value.id === exercise.id,
+                                    ) && "opacity-100"
+                                  }`}
+                                />
+                              </CommandItem>
+                            ))}
+                          </ScrollArea>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </>
                 </FormControl>
                 <FormMessage className="text-base" />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel className="text-2xl font-semibold">Type</FormLabel>
-                <FormControl>
-                  <ul className="flex w-full items-center gap-2">
-                    <li className="w-full">
-                      <Button
-                        type="button"
-                        onClick={() => field.onChange("duration")}
-                        variant={
-                          field.value === "duration" ? "default" : "outline"
-                        }
-                        className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
+          {/* {form.getValues("exercise_time").map((_, index) => (
+            <div className="space-y-1 pt-2" key={index}>
+              {field.value.length > 0 &&
+                field.value.map((exercise, index) => {
+                  const current = field.value.map((_exercise) => {
+                    return { id: _exercise.id };
+                  });
+                  console.log(form.getValues("exercise_time"));
+                  return (
+                    <div key={index} className="flex items-center gap-1">
+                      <div className="relative flex-1">
+                        <Input
+                          type="number"
+                          className={`flex-1 text-base ${exercise.type === "repeats" ? "pl-12" : "pl-24"}`}
+                          placeholder={
+                            exercise.type === "repeats" ? "16" : "00:20"
+                          }
+                          onChange={(e) => {
+                            form.setValue("exercise_time", [...current, {}]);
+                            return {
+                              id: exercise.id,
+                              time: e.target.value,
+                            };
+                          }}
+                        />
+                        <Button
+                          variant={"secondary"}
+                          className="absolute bottom-0 left-0"
+                        >
+                          {exercise.type === "repeats" ? "x" : "seconds"}
+                        </Button>
+                      </div>
+
+                      <Badge
+                        variant={"secondary"}
+                        className="flex-1 cursor-default select-none justify-between font-mono text-base uppercase"
                       >
-                        <RxLapTimer className="mr-1" />
-                        Duration
-                      </Button>
-                    </li>
-                    <li className="w-full">
-                      <Button
-                        type="button"
-                        onClick={() => field.onChange("repeats")}
-                        variant={
-                          field.value === "repeats" ? "default" : "outline"
-                        }
-                        className="h-12 w-full rounded-xl text-2xl font-semibold tracking-tight transition-all"
-                      >
-                        <TiArrowRepeatOutline className="mr-1" />
-                        Repeats
-                      </Button>
-                    </li>
-                  </ul>
-                </FormControl>
-                <FormMessage className="text-base" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="video_url"
-            render={({ field }) => (
-              <FormItem className="space-y-0">
-                <FormLabel className="text-2xl font-semibold">
-                  Tutorial YT Video
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="https://www.youtube.com/watch?v=d1YBv2mWll0"
-                    className="text-base"
-                  />
-                </FormControl>
-                <FormMessage className="text-base" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="muscles"
-            render={({ field }) => (
-              <FormItem className="space-y-0">
-                <FormLabel className="text-2xl font-semibold">
-                  Muscle Group
-                </FormLabel>
-                <FormControl>
-                  <Command className="border-2">
-                    <CommandInput placeholder="Search a muscle group" />
-                    <CommandList>
-                      <CommandEmpty>No results found.</CommandEmpty>
-                      <CommandGroup heading="Muscle Group">
-                        <ScrollArea className="h-[200px]">
-                          {MuscleGroups.map((key, index) => (
-                            <CommandItem
-                              key={index}
-                              className="flex items-center justify-between font-mono text-base uppercase"
-                              onSelect={() => {
-                                if (!field.value.includes(key)) {
-                                  field.onChange([...field.value, key]);
-                                } else {
-                                  const current = field.value.filter(
-                                    (value) => key !== value,
-                                  );
-                                  field.onChange([...current]);
-                                }
-                              }}
-                            >
-                              {key}
-                              <FaCheck
-                                className={`opacity-0 transition-all ${field.value.includes(key) && "opacity-100"}`}
-                              />
-                            </CommandItem>
-                          ))}
-                        </ScrollArea>
-                      </CommandGroup>
-                    </CommandList>
-                    <div className="flex flex-wrap items-center gap-1 p-2">
-                      {field.value.length > 0 &&
-                        field.value.map((value, index) => (
-                          <Badge
-                            key={index}
-                            variant={"secondary"}
-                            className="cursor-default select-none gap-1 font-mono text-base uppercase"
-                          >
-                            <span>{value}</span>
-                            <IoIosCloseCircle
-                              size={24}
-                              className="cursor-pointer transition-all hover:brightness-75"
-                              onClick={() => {
-                                const current = field.value.filter(
-                                  (key) => key !== value,
-                                );
-                                field.onChange([...current]);
-                              }}
-                            />
-                          </Badge>
-                        ))}
+                        <span>{exercise.name}</span>
+                        <IoIosCloseCircle
+                          size={24}
+                          className="cursor-pointer transition-all hover:brightness-75"
+                          onClick={() => {
+                            const current = field.value.filter(
+                              (key) => key !== exercise,
+                            );
+                            field.onChange([...current]);
+                          }}
+                        />
+                      </Badge>
                     </div>
-                  </Command>
-                </FormControl>
-                <FormMessage className="text-base" />
-              </FormItem>
-            )}
-          />
+                  );
+                })}
+            </div>
+          ))} */}
 
           <Button
             disabled={isPending}
