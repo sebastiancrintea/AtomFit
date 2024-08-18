@@ -39,7 +39,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useEffect } from "react";
 
 const exercises = [
   {
