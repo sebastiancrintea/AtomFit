@@ -4,7 +4,7 @@ import { WorkoutCard } from "./_components/workout-card";
 export default function WorkoutPage() {
   return (
     <>
-      <header>
+      <header className="py-2">
         <h1>Workout</h1>
         <SearchBox />
       </header>
