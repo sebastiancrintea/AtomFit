@@ -59,9 +59,9 @@ const exercises = [
     description:
       "Learn how to create websites that work on all devices using responsive design techniques.",
     video_url: "https://example.com/videos/responsive-web-design",
-    type: "repeats",
+    type: "duration",
     muscles: ["chest", "traps"],
-    time: 13,
+    time: 30,
   },
   {
     id: 8,
@@ -119,9 +119,9 @@ const exercises = [
     description:
       "An overview of essential cybersecurity practices to protect data and systems.",
     video_url: "https://example.com/videos/cybersecurity-fundamentals",
-    type: "repeats",
+    type: "duration",
     muscles: ["chest", "traps"],
-    time: 13,
+    time: 26,
   },
   {
     id: 14,
@@ -139,9 +139,9 @@ const exercises = [
     description:
       "Learn how to create compelling data visualizations using Tableau.",
     video_url: "https://example.com/videos/data-visualization-with-tableau",
-    type: "repeats",
+    type: "duration",
     muscles: ["chest", "traps"],
-    time: 13,
+    time: 45,
   },
 ];
 

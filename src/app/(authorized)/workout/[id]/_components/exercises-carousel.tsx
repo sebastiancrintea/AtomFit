@@ -13,6 +13,7 @@ import {
 import { useCountdown } from "@/hooks/useCountdown";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { WorkoutExercisePage } from "./workout-exercise-page";
 
 type Props = {
   exercises: {
@@ -48,23 +49,11 @@ export function ExercisesCarousel({ exercises }: Props) {
         <CarouselContent>
           {exercises.map((exercise, index) => (
             <CarouselItem key={index}>
-              <div className="mx-auto aspect-video w-full rounded-xl border-2 bg-popover"></div>
-              <section>
-                <h1 className="uppercase">{exercise.name}</h1>
-                <span>{exercise.time}</span>
-              </section>
-              <p className="text-muted-foreground">{exercise.description}</p>
-              <div className="flex items-center gap-1">
-                {exercise.muscles.map((muscle, index) => (
-                  <Badge key={index} className="font-mono text-sm uppercase">
-                    {muscle}
-                  </Badge>
-                ))}
-              </div>
+              <WorkoutExercisePage exercise={exercise} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="absolute bottom-4 right-5 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">
+        <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">
           <Button
             size={"icon"}
             variant={"ghost"}
