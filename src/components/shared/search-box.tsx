@@ -5,7 +5,6 @@ import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { IoIosCloseCircle } from "react-icons/io";
 
 type Props = {
   placeholder?: string;

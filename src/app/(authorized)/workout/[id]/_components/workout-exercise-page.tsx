@@ -1,8 +1,8 @@
 "use client";
+import { YoutubeEmbed } from "@/components/shared/youtube-embed";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useCountdown } from "@/hooks/useCountdown";
-import { useState } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 
 type Props = {
@@ -21,9 +21,15 @@ export function WorkoutExercisePage({ exercise }: Props) {
   const { secondsLeft, start, pause, resume, started, isRunning } =
     useCountdown();
 
+  const url = new URL(exercise.video_url);
+  const params = new URLSearchParams(url.search);
+  const video_id = params.get("v");
+
   return (
     <>
-      <div className="mx-auto aspect-video w-full rounded-xl border-2 bg-popover"></div>
+      <div className="aspect-video overflow-hidden rounded-xl border-2 bg-popover">
+        {video_id && <YoutubeEmbed embedId={video_id} />}
+      </div>
       <section className="flex items-center justify-between">
         <h1 className="uppercase">{exercise.name}</h1>
         {exercise.type === "duration" ? (

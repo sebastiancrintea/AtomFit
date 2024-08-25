@@ -1,16 +1,13 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useCountdown } from "@/hooks/useCountdown";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { WorkoutExercisePage } from "./workout-exercise-page";
@@ -28,7 +25,6 @@ type Props = {
 };
 
 export function ExercisesCarousel({ exercises }: Props) {
-  const { secondsLeft, start } = useCountdown();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
