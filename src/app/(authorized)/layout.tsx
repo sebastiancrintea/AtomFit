@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <>
       <section className="flex">
-        <aside className="sticky top-0 hidden h-screen p-2 md:block">
+        <aside className="sticky top-0 z-50 hidden h-screen p-2 md:block">
           <LaptopNavigaton />
         </aside>
         <main className="container min-h-screen p-4 pb-24 md:pb-4">

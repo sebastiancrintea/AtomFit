@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { GoHome } from "react-icons/go";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
