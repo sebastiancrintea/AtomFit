@@ -18,11 +18,11 @@ export function SearchBox({ placeholder }: Props) {
   const handleSearch = useDebouncedCallback((q: string) => {
     const params = new URLSearchParams(searchParams);
     q ? params.set("q", q) : params.delete("q");
-    router.replace(`${pathname}?${params.toString()}`);
-  });
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, 100);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Input
         type="search"
         autoComplete="off"

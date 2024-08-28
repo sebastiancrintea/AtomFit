@@ -26,7 +26,7 @@ import { useState } from "react";
 import { IoLogIn } from "react-icons/io5";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "@/actions/auth";
+import { loginAction } from "@/actions/auth";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,7 +40,7 @@ export function LoginForm() {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: login,
+    mutationFn: loginAction,
   });
   const onSubmit = async (values: loginFormType) => {
     const response = await mutateAsync(values);

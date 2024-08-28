@@ -1,4 +1,4 @@
-import { GoHome, GoHomeFill } from "react-icons/go";
+import { GoHome, GoHomeFill, GoClockFill, GoClock } from "react-icons/go";
 import { MdExplore, MdOutlineExplore } from "react-icons/md";
 import { TbSquareRoundedPlusFilled, TbSquareRoundedPlus } from "react-icons/tb";
 
@@ -10,10 +10,10 @@ export const links = [
     icon: GoHome,
   },
   {
-    path: "/workout",
+    path: "/workout/saved",
     title: "Workout",
-    iconFill: GoHomeFill,
-    icon: GoHome,
+    iconFill: GoClockFill,
+    icon: GoClock,
   },
   {
     path: "/create",

@@ -1,6 +1,5 @@
-import { checkError, BASE_URL } from "@/lib/fetchUtils";
-import { getAuthHeaders, removeToken } from "@/lib/getAuthHeaders";
-import { signIn, signOut } from "next-auth/react";
+import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
+import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 
 type registerParams = {
@@ -19,16 +18,14 @@ export const register = async (body: registerParams) => {
   try {
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: HEADERS,
       body: JSON.stringify(body),
     });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw new Error(errorMessage.detail);
-    }
-    const result = await response.json();
-    toast.success(result.success);
-    return result;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data);
+
+    toast.success(data.success);
+    return data;
   } catch (error) {
     return checkError(error);
   }
@@ -38,7 +35,7 @@ type loginParams = {
   password: string;
 };
 
-export const login = async (body: loginParams) => {
+export const loginAction = async (body: loginParams) => {
   const { email, password } = body;
   try {
     const response = await signIn("credentials", {
@@ -47,17 +44,11 @@ export const login = async (body: loginParams) => {
       redirect: false,
       callbackUrl: "/",
     });
-    if (response?.error) {
-      throw new Error(response.error);
-    }
+    if (response?.error) throw new Error(response.error);
+
     toast.success("You signed in with success!");
     return response;
   } catch (error) {
     return checkError(error);
   }
-};
-
-export const logout = () => {
-  signOut();
-  removeToken();
 };

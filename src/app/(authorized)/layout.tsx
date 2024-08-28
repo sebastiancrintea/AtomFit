@@ -1,7 +1,7 @@
 import { LaptopNavigaton } from "@/components/shared/navigation/laptop-navigation";
 import { MobileNavigation } from "@/components/shared/navigation/mobile-navigation";
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;

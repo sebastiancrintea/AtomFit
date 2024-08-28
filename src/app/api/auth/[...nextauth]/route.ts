@@ -10,8 +10,12 @@ const refreshToken = async (token: any) => {
   );
   if (response.ok) {
     const data = await response.json();
-    cookies().set("access_token", data.access_token, {
-      maxAge: data.access_expire * 60,
+
+    cookies().set({
+      name: "access_token",
+      value: data.access_token,
+      httpOnly: true,
+      secure: true,
     });
 
     return {
@@ -39,17 +43,26 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials) return null;
+
         const { email, password } = credentials;
+
         const response = await fetch(`${BASE_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         });
-        if (!response.ok) {
-          const errorMessage = await response.json();
-          throw new Error(errorMessage.detail);
-        }
-        return await response.json();
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.detail);
+
+        cookies().set({
+          name: "access_token",
+          value: data.access_token,
+          httpOnly: true,
+          secure: true,
+        });
+
+        return data;
       },
     }),
   ],
@@ -61,10 +74,6 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        cookies().set("access_token", user.access_token, {
-          maxAge: user.access_expire * 60,
-        });
-
         token.access_token = user.access_token;
         token.refresh_token = user.refresh_token;
         token.access_expire = Date.now() + user.access_expire * 60 * 1000;
