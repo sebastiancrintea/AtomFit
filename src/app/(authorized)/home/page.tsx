@@ -6,14 +6,17 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const today = new Date();
   return (
     <>
-      <h1 className="mb-2">Today</h1>
-      <section className="flex gap-2">
-        <section className="flex-1">
-          <CaloriesGoalChart />
-        </section>
-        <section className="flex-1 rounded-xl border-2 bg-popover"></section>
+      <header className="flex items-center justify-between py-2">
+        <h1>Today</h1>
+        <h3>{`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`}</h3>
+      </header>
+      <section className="grid grid-cols-2 grid-rows-2 gap-2">
+        <CaloriesGoalChart />
+        <section className="row-span-2 overflow-auto rounded-xl border-2 bg-popover"></section>
+        <section className="rounded-xl border-2 bg-popover"></section>
       </section>
     </>
   );

@@ -1,10 +1,8 @@
-"use client";
-
 import { NavigateBackButton } from "@/components/shared/navigate-back";
 import { Button } from "@/components/ui/button";
 import { ExerciseCard } from "./_components/exercise-card";
-import { useState } from "react";
 import { ExercisesCarousel } from "./_components/exercises-carousel";
+import Link from "next/link";
 
 const exercises = [
   {
@@ -146,15 +144,16 @@ const exercises = [
 ];
 
 type Props = {
+  searchParams?: { start?: boolean };
   params: { id: string };
 };
 
-export default function SingleWorkout({ params }: Props) {
-  const [start, setStart] = useState(false);
-  console.log(params.id);
+export default function SingleWorkout({ searchParams, params }: Props) {
   return (
     <>
-      {!start && (
+      {searchParams?.start ? (
+        <ExercisesCarousel exercises={exercises} />
+      ) : (
         <section className="h-full w-full space-y-2 rounded-xl border-2 bg-popover p-2">
           <section className="relative aspect-video rounded-xl bg-secondary">
             <div className="absolute top-0 flex items-center gap-2 rounded-br-xl rounded-tl-xl bg-primary p-2">
@@ -166,10 +165,10 @@ export default function SingleWorkout({ params }: Props) {
             </div>
             <div className="absolute bottom-2 right-2">
               <Button
+                asChild
                 className="font-mono text-xl font-semibold uppercase"
-                onClick={() => setStart(true)}
               >
-                Start
+                <Link href={"?start=true"}>Start</Link>
               </Button>
             </div>
           </section>
@@ -183,7 +182,6 @@ export default function SingleWorkout({ params }: Props) {
           </ul>
         </section>
       )}
-      {start && <ExercisesCarousel exercises={exercises} />}
     </>
   );
 }

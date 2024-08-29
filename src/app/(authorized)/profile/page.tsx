@@ -8,7 +8,6 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { SlNotebook } from "react-icons/sl";
 import { GiHotMeal, GiMuscleUp } from "react-icons/gi";
 import { FaDumbbell } from "react-icons/fa6";
-import { SettingsSheet } from "./_components/settings-sheet";
 import { FaUserFriends } from "react-icons/fa";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -16,6 +15,7 @@ import { CreateExerciseSheet } from "@/components/shared/exercise/create-exercis
 import { CreateWorkoutSheet } from "@/components/shared/workout/create-workout-sheet";
 import { CreateWorkoutDrawer } from "@/components/shared/workout/create-workout-drawer";
 import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exercise-drawer";
+import { SettingsDropdown } from "./_components/settings-dropdown";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -38,13 +38,13 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
-        <div className="space-x-1">
+        <div className="flex items-center gap-1">
           <Button size={"icon"} variant={"ghost"} asChild>
             <Link href={"/friends"}>
               <FaUserFriends size={32} />
             </Link>
           </Button>
-          <SettingsSheet />
+          <SettingsDropdown />
         </div>
       </header>
       <Tabs defaultValue="info">

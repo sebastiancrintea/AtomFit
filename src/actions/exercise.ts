@@ -1,6 +1,5 @@
-import { checkError, BASE_URL } from "@/lib/fetchUtils";
-import { getAuthHeaders } from "@/lib/getAuthHeaders";
-import { MuscleGroups } from "@/schemas/create-exercise-schema";
+import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
+
 import { toast } from "sonner";
 
 type createExerciseParams = {
@@ -8,23 +7,22 @@ type createExerciseParams = {
   description: string;
   type: "duration" | "repeats";
   video_url: string;
-  muscles: MuscleGroups[];
+  muscles: string[];
 };
 
 export const createExercise = async (body: createExerciseParams) => {
   try {
     const response = await fetch(`${BASE_URL}/exercise`, {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: HEADERS,
+      credentials: "include",
       body: JSON.stringify(body),
     });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw new Error(errorMessage.detail);
-    }
-    const result = await response.json();
-    toast.success(result.success);
-    return result;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    toast.success(data.success);
+    return data;
   } catch (error) {
     return checkError(error);
   }

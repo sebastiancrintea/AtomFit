@@ -18,6 +18,7 @@ import { GiWeightScale } from "react-icons/gi";
 
 export function UpdateWeightDialog() {
   const [currentWeight, setCurrentWeight] = useState<number>(0);
+
   const { mutateAsync, isPending } = useMutation({
     mutationFn: updateCurrentWeight,
   });
@@ -84,7 +85,11 @@ export function UpdateWeightDialog() {
                 </Button>
               </DialogClose>
 
-              <Button className="text-lg transition-all" type="submit">
+              <Button
+                disabled={isPending}
+                className="text-lg transition-all"
+                type="submit"
+              >
                 {isPending ? (
                   <AiOutlineLoading className="animate-spin" />
                 ) : (

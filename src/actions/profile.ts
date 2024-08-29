@@ -1,5 +1,5 @@
-import { checkError, BASE_URL } from "@/lib/fetchUtils";
-import { getAuthHeaders } from "@/lib/getAuthHeaders";
+import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
+
 import { toast } from "sonner";
 
 export const updateCurrentWeight = async (weight: number | null) => {
@@ -7,16 +7,15 @@ export const updateCurrentWeight = async (weight: number | null) => {
   try {
     const response = await fetch(`${BASE_URL}/????`, {
       method: "POST",
-      headers: getAuthHeaders(),
+      headers: HEADERS,
+      credentials: "include",
       body: JSON.stringify({ weight }),
     });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw new Error(errorMessage.detail);
-    }
-    const result = await response.json();
-    toast.success(result.success);
-    return result;
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    toast.success(data.success);
+    return data;
   } catch (error) {
     return checkError(error);
   }
