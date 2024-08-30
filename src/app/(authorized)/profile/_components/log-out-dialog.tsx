@@ -1,5 +1,4 @@
 "use client";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,7 +38,7 @@ export function LogOutDialog() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction onClick={() => {}}>Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

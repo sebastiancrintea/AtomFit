@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FaCog, FaEdit } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 import { ThemeSubDropdown } from "./theme-subdropdown";
 import { LogOutDialog } from "./log-out-dialog";
+import { EditProfile } from "./edit-profile";
 
 export function SettingsDropdown() {
   return (
@@ -20,10 +20,7 @@ export function SettingsDropdown() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="flex items-center gap-2 text-lg font-bold">
-            <FaEdit size={24} />
-            <span>Edit Profile</span>
-          </DropdownMenuItem>
+          <EditProfile />
           <ThemeSubDropdown />
           <DropdownMenuSeparator />
           <LogOutDialog />
