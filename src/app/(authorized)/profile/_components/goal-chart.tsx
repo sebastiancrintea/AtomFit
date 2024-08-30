@@ -19,7 +19,7 @@ import {
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { GiWeightScale } from "react-icons/gi";
-import { UpdateWeightDialog } from "./update-current-weight";
+import { UpdateWeightDialog } from "../../../../components/shared/update-current-weight/update-current-weight-dialog";
 
 const chartData = [
   { goal: "lose", lost: 14, fill: "var(--color-goal)", start: 90, finish: 75 },

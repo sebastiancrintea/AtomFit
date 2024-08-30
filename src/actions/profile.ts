@@ -3,8 +3,7 @@ import { editProfileFormType } from "@/schemas/edit-profile-schema";
 
 import { toast } from "sonner";
 
-export const updateCurrentWeight = async (weight: number | null) => {
-  if (!weight) return { error: "You need to input a weight to update it :)" };
+export const updateCurrentWeight = async ({ weight }: { weight: number }) => {
   try {
     const response = await fetch(`${BASE_URL}/????`, {
       method: "POST",
