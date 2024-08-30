@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GoalChart } from "./_components/goal-chart";
-import { UpdateGoals } from "./_components/update-goals";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { SlNotebook } from "react-icons/sl";
@@ -16,6 +15,7 @@ import { CreateWorkoutSheet } from "@/components/shared/workout/create-workout-s
 import { CreateWorkoutDrawer } from "@/components/shared/workout/create-workout-drawer";
 import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exercise-drawer";
 import { SettingsDropdown } from "./_components/settings-dropdown";
+import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
 
 export const metadata: Metadata = {
   title: "Profile",

@@ -1,3 +1,4 @@
+import { updateCurrentWeight } from "@/actions/profile";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,13 +26,15 @@ export function UpdateCurrentWeightForm() {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: () => {},
+    mutationFn: updateCurrentWeight,
   });
 
   const onSubmit = async (values: updateWeightType) => {
-    console.log("🚀 ~ onSubmit ~ values:", values)
-    // const data = await mutateAsync(values);
-    // if (data.error) return;
+    const body = {
+      weight: parseFloat(values.weight),
+    };
+    const data = await mutateAsync(body);
+    if (data.error) return;
   };
   return (
     <>

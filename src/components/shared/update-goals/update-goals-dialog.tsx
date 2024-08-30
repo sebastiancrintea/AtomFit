@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { GoGoal } from "react-icons/go";
+import { UpdateGoalsForm } from "./update-goals-form";
 
 export function UpdateGoals() {
   return (
@@ -20,12 +21,12 @@ export function UpdateGoals() {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>Update your goals</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Change your goals so it suits better your journey.
             </DialogDescription>
           </DialogHeader>
+          <UpdateGoalsForm />
         </DialogContent>
       </Dialog>
     </>
