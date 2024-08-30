@@ -21,10 +21,10 @@ export function LogOutDialog() {
         <AlertDialogTrigger asChild>
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-lg font-bold"
           >
             <IoLogOut size={24} />
-            <span className="text-lg font-bold">Log Out</span>
+            <span>Log Out</span>
           </DropdownMenuItem>
         </AlertDialogTrigger>
         <AlertDialogContent>

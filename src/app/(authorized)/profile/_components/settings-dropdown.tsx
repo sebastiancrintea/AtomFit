@@ -3,7 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -21,9 +20,9 @@ export function SettingsDropdown() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="flex items-center gap-2">
+          <DropdownMenuItem className="flex items-center gap-2 text-lg font-bold">
             <FaEdit size={24} />
-            <span className="text-lg font-bold">Edit Profile</span>
+            <span>Edit Profile</span>
           </DropdownMenuItem>
           <ThemeSubDropdown />
           <DropdownMenuSeparator />
