@@ -1,7 +1,7 @@
 import { FaSave } from "react-icons/fa";
 import { GiCrownedHeart } from "react-icons/gi";
 
-export const workoutTabs = [
+export const friendsTabs = [
   {
     path: "/workout/saved",
     title: "Saved",

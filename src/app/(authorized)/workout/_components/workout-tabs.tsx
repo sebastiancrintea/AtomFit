@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { tabs } from "@/constants/workout-tabs";
+import { workoutTabs } from "@/constants/workout-tabs";
 
 export function WorkoutTabs() {
   const pathname = usePathname();
   return (
     <TooltipProvider>
       <div className="grid grid-cols-2 overflow-hidden rounded-xl bg-background">
-        {tabs.map((tab, index) => (
+        {workoutTabs.map((tab, index) => (
           <Tooltip key={index}>
             <TooltipTrigger asChild>
               <Button

@@ -43,7 +43,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function CaloriesGoalChart() {
-  const loseGoal = chartData[0].start - chartData[0].finish;
+  const loseGoal = chartData[0].start - chartData[0].finish;  
   return (
     <Card className="flex w-full flex-col border-2 bg-popover">
       <CardHeader className="items-center pb-0 pt-2">
@@ -55,7 +55,7 @@ export function CaloriesGoalChart() {
       <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px] flex-1"
+          className="mx-auto aspect-square max-h-[250px] flex-1"
         >
           <RadialBarChart
             data={chartData}
