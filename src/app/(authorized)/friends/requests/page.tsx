@@ -11,13 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Friends",
-};
-
-export default function FriendsPage() {
+export default function FriendRequestsPage() {
   return (
     <>
       <ul className="space-y-1">
@@ -37,12 +31,7 @@ export default function FriendsPage() {
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button
-                  variant={"secondary"}
-                  className="font-semibold md:text-lg"
-                >
-                  REMOVE
-                </Button>
+                <Button className="font-semibold md:text-lg">ACCEPT</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>

@@ -25,6 +25,7 @@ export function FriendsTabs() {
                 >
                   <Link
                     href={tab.path}
+                    replace
                     className="space-x-1"
                     scroll={pathname === tab.path ? false : true}
                   >

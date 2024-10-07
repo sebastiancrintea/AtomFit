@@ -3,13 +3,13 @@ import { GiCrownedHeart } from "react-icons/gi";
 
 export const friendsTabs = [
   {
-    path: "/workout/saved",
-    title: "Saved",
+    path: "/friends/active",
+    title: "Active",
     icon: FaSave,
   },
   {
-    path: "/workout/mine",
-    title: "Mine",
+    path: "/friends/requests",
+    title: "Requests",
     icon: GiCrownedHeart,
   },
 ];

@@ -11,13 +11,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Friends",
-};
-
-export default function FriendsPage() {
+export default function FriendsActivePage() {
   return (
     <>
       <ul className="space-y-1">

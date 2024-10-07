@@ -40,7 +40,7 @@ export default function ProfilePage() {
         </div>
         <div className="flex items-center gap-1">
           <Button size={"icon"} variant={"ghost"} asChild>
-            <Link href={"/friends"}>
+            <Link href={"/friends/active"}>
               <FaUserFriends size={32} />
             </Link>
           </Button>

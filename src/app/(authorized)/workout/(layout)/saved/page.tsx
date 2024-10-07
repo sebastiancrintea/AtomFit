@@ -1,11 +1,22 @@
 import { getSavedWorkouts } from "@/actions/workout";
 import { WorkoutCard } from "../../_components/workout-card";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { PaginationComponent } from "@/components/shared/pagination/pagination";
 
 type Props = {
   searchParams?: { q?: string };
 };
 
 export default async function WorkoutSavedPage({ searchParams }: Props) {
+  const perPage = 20;
   const data = await getSavedWorkouts(searchParams?.q);
   // if (data.error) return data.error;
   return (
@@ -17,6 +28,9 @@ export default async function WorkoutSavedPage({ searchParams }: Props) {
           </li>
         ))}
       </ul>
+      {/* <footer>
+        <PaginationComponent />
+      </footer> */}
     </>
   );
 }

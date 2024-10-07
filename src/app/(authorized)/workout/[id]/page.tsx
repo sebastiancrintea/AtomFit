@@ -152,7 +152,13 @@ export default function SingleWorkout({ searchParams, params }: Props) {
   return (
     <>
       {searchParams?.start ? (
-        <ExercisesCarousel exercises={exercises} />
+        <>
+          <header className="flex items-center gap-2">
+            <NavigateBackButton />
+            <h1>Workout Title</h1>
+          </header>
+          <ExercisesCarousel exercises={exercises} />
+        </>
       ) : (
         <section className="h-full w-full space-y-2 rounded-xl border-2 bg-popover p-2">
           <section className="relative aspect-video rounded-xl bg-secondary">

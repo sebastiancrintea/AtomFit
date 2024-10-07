@@ -27,7 +27,7 @@ export function WorkoutExercisePage({ exercise }: Props) {
 
   return (
     <>
-      <div className="aspect-video overflow-hidden rounded-xl border-2 bg-popover">
+      <div className="group aspect-video overflow-hidden rounded-xl border-2 bg-popover">
         {video_id && <YoutubeEmbed embedId={video_id} />}
       </div>
       <section className="flex items-center justify-between">

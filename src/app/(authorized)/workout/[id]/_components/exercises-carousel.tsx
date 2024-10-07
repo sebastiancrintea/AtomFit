@@ -41,7 +41,7 @@ export function ExercisesCarousel({ exercises }: Props) {
 
   return (
     <>
-      <Carousel setApi={setApi} className="size-full">
+      <Carousel setApi={setApi} className="h-[90vh] w-full">
         <CarouselContent>
           {exercises.map((exercise, index) => (
             <CarouselItem key={index}>
@@ -49,6 +49,7 @@ export function ExercisesCarousel({ exercises }: Props) {
             </CarouselItem>
           ))}
         </CarouselContent>
+
         <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">
           <Button
             size={"icon"}
