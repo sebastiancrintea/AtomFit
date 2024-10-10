@@ -1,3 +1,4 @@
+import { getAuthHeaders } from "@/lib/authHeader";
 import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
 import { editProfileFormType } from "@/schemas/edit-profile-schema";
 import { updateGoalsType } from "@/schemas/update-goals-schema";
@@ -6,10 +7,9 @@ import { toast } from "sonner";
 
 export const updateCurrentWeight = async ({ weight }: { weight: number }) => {
   try {
-    const response = await fetch(`${BASE_URL}/????`, {
+    const response = await fetch(`${BASE_URL}/users/attributes/log/weight`, {
       method: "POST",
-      headers: HEADERS,
-      credentials: "include",
+      headers: await getAuthHeaders(),
       body: JSON.stringify({ weight }),
     });
     const data = await response.json();

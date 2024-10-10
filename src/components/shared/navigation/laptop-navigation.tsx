@@ -42,10 +42,10 @@ export function LaptopNavigaton() {
                       <Link
                         href={link.path}
                         className={cn("flex items-center gap-1", {
-                          "font-semibold": pathname === link.path,
+                          "font-semibold": link.path.includes(pathname),
                         })}
                       >
-                        {pathname === link.path ? (
+                        {link.path.includes(pathname) ? (
                           <link.iconFill size={32} />
                         ) : (
                           <link.icon size={32} />
@@ -75,7 +75,7 @@ export function LaptopNavigaton() {
                 <Link href={"/profile"} className="flex items-center gap-2">
                   <Avatar
                     className={cn("transition-all", {
-                      "border-2 border-white": pathname === "/profile",
+                      "border-2 border-white": "/profile".includes(pathname),
                     })}
                   >
                     <AvatarFallback>CN</AvatarFallback>
@@ -83,7 +83,7 @@ export function LaptopNavigaton() {
                   <div className="hidden xl:block">
                     <h2
                       className={cn("text-base font-normal transition-all", {
-                        "font-semibold": pathname === "/profile",
+                        "font-semibold": "/profile".includes(pathname),
                       })}
                     >
                       Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd

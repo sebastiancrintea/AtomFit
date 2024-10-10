@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Sheet,
@@ -7,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useSortable } from "@dnd-kit/sortable";
 import { MdDragIndicator } from "react-icons/md";
 
 type Props = {
@@ -22,8 +25,16 @@ type Props = {
 };
 
 export function ExerciseCard({ exercise }: Props) {
+  const { attributes, listeners, setNodeRef } = useSortable({
+    id: exercise.id,
+  });
   return (
-    <li className="flex items-center gap-1 rounded-xl border-2 p-2">
+    <li
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      className="flex items-center gap-1 rounded-xl border-2 p-2"
+    >
       <MdDragIndicator size={32} />
       <Sheet>
         <SheetTrigger asChild>

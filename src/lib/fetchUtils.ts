@@ -1,5 +1,4 @@
 import { toast } from "sonner";
-import { unknown } from "zod";
 export const BASE_URL = new URL(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export const serverError =

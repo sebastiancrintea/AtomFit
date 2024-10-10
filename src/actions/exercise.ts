@@ -1,3 +1,4 @@
+import { getAuthHeaders } from "@/lib/authHeader";
 import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
 
 import { toast } from "sonner";
@@ -14,8 +15,7 @@ export const getExercises = async () => {
   try {
     const response = await fetch(`${BASE_URL}/exercises`, {
       method: "GET",
-      headers: HEADERS,
-      credentials: "include",
+      headers: await getAuthHeaders(),
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
@@ -29,10 +29,9 @@ export const getExercises = async () => {
 
 export const createExercise = async (body: createExerciseParams) => {
   try {
-    const response = await fetch(`${BASE_URL}/exercise`, {
+    const response = await fetch(`${BASE_URL}/exercises`, {
       method: "POST",
-      headers: HEADERS,
-      credentials: "include",
+      headers: await getAuthHeaders(),
       body: JSON.stringify(body),
     });
     const data = await response.json();

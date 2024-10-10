@@ -1,3 +1,5 @@
+"use client";
+
 import { NavigateBackButton } from "@/components/shared/navigate-back";
 import { Button } from "@/components/ui/button";
 import { ExerciseCard } from "./_components/exercise-card";
@@ -148,6 +150,9 @@ type Props = {
   params: { id: string };
 };
 
+import { DndContext } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+
 export default function SingleWorkout({ searchParams, params }: Props) {
   return (
     <>
@@ -182,9 +187,13 @@ export default function SingleWorkout({ searchParams, params }: Props) {
             <h4 className="font-mono text-base">20 mins | 16 Exercises</h4>
           </div>
           <ul className="space-y-2">
-            {exercises.map((exercise, index) => (
-              <ExerciseCard key={index} exercise={exercise} />
-            ))}
+            <DndContext>
+              <SortableContext items={exercises}>
+                {exercises.map((exercise, index) => (
+                  <ExerciseCard key={index} exercise={exercise} />
+                ))}
+              </SortableContext>
+            </DndContext>
           </ul>
         </section>
       )}
