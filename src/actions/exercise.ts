@@ -6,8 +6,8 @@ import { toast } from "sonner";
 type createExerciseParams = {
   name: string;
   description: string;
-  type: "duration" | "repeats";
-  video_url: string;
+  is_duration: boolean;
+  tutorial_link: string;
   muscles: string[];
 };
 
@@ -19,8 +19,6 @@ export const getExercises = async () => {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
-
-    toast.success(data.success);
     return data;
   } catch (error) {
     return checkError(error);

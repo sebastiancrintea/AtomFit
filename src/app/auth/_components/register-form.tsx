@@ -94,7 +94,7 @@ export function RegisterForm() {
       age: parseInt(values.age),
       height: parseInt(values.height),
       weight: parseFloat(values.weight),
-      weight_preference: parseFloat(values.weight_preference),
+      weight_goal: parseFloat(values.weight_goal),
     };
     const response = await mutateAsync(body);
     if (response.error) {
@@ -486,7 +486,7 @@ export function RegisterForm() {
                   />
                   <FormField
                     control={form.control}
-                    name="weight_preference"
+                    name="weight_goal"
                     render={({ field }) => (
                       <FormItem className="space-y-0">
                         <FormLabel className="text-2xl font-semibold">

@@ -57,7 +57,7 @@ const handler = NextAuth({
 
         cookies().set({
           name: "access_token",
-          value: data.access_token,
+          value: data.token,
           secure: true,
         });
 

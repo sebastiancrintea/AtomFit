@@ -47,7 +47,11 @@ export function CreateExerciseForm() {
   });
 
   const onSubmit = async (values: createExerciseType) => {
-    const data = await mutateAsync(values);
+    const body = {
+      ...values,
+      is_duration: values.is_duration === "duration" ? true : false,
+    };
+    const data = await mutateAsync(body);
     if (data.error) return;
     form.reset();
   };
@@ -96,7 +100,7 @@ export function CreateExerciseForm() {
           />
           <FormField
             control={form.control}
-            name="type"
+            name="is_duration"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <FormLabel className="text-2xl font-semibold">Type</FormLabel>
@@ -136,7 +140,7 @@ export function CreateExerciseForm() {
           />
           <FormField
             control={form.control}
-            name="video_url"
+            name="tutorial_link"
             render={({ field }) => (
               <FormItem className="space-y-0">
                 <FormLabel className="text-2xl font-semibold">

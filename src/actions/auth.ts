@@ -11,7 +11,7 @@ type registerParams = {
   age: number;
   height: number;
   weight: number;
-  weight_preference: number;
+  weight_goal: number;
 };
 
 export const register = async (body: registerParams) => {

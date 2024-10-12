@@ -43,7 +43,7 @@ export const registerFormSchema = z
         "You must have more than 30kg.",
       )
       .refine((value) => parseFloat(value) < 300, "I hope you are joking xD."),
-    weight_preference: z
+    weight_goal: z
       .string()
       .refine((value) => !!parseInt(value), {
         message: "Please enter a number.",
@@ -76,5 +76,5 @@ export const registerFormDefault = {
   age: "16",
   height: "150",
   weight: "60.2",
-  weight_preference: "70.3",
+  weight_goal: "70.3",
 };

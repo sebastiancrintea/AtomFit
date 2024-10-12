@@ -4,10 +4,12 @@ const exercise = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string(),
-  video_url: z.string(),
-  type: z.string(),
+  is_duration: z.boolean(),
+  duration: z.string().min(1),
   muscles: z.array(z.string()),
-  time: z.string().min(1),
+  tutorial_link: z.string(),
+  user_id: z.number(),
+  created_at: z.string(),
 });
 
 export const createWorkoutSchema = z.object({

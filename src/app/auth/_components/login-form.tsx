@@ -28,10 +28,12 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { loginAction } from "@/actions/auth";
 import { AiOutlineLoading } from "react-icons/ai";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const form = useForm<loginFormType>({
@@ -49,6 +51,7 @@ export function LoginForm() {
       return setTimeout(() => setError(null), 10000);
     }
     form.reset();
+    router.push("/home");
   };
   return (
     <>
