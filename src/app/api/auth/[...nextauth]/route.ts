@@ -1,7 +1,14 @@
 import { BASE_URL } from "@/lib/fetchUtils";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
+
+import type {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+import { getServerSession } from "next-auth";
 
 // const refreshToken = async (token: any) => {
 //   console.log("refreshed token");
@@ -29,7 +36,7 @@ import { cookies } from "next/headers";
 //   }
 // };
 
-const handler = NextAuth({
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -80,7 +87,7 @@ const handler = NextAuth({
     async session({ session, token }) {
       session.access_token = token.access_token;
       if (session.access_token ?? false) {
-        const userData = await fetch(`${BASE_URL}/users`, {
+        const userData = await fetch(`${BASE_URL}/users/attributes`, {
           headers: { Authorization: `Bearer ${token.access_token}` },
         });
         if (userData.ok) {
@@ -91,6 +98,17 @@ const handler = NextAuth({
       return session;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
+
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions);
+}
 
 export { handler as GET, handler as POST };

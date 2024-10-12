@@ -13,8 +13,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
 
 export function LaptopNavigaton() {
+  const session = useSession();
   const pathname = usePathname();
   return (
     <>
@@ -78,7 +80,11 @@ export function LaptopNavigaton() {
                       "border-2 border-white": "/profile".includes(pathname),
                     })}
                   >
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                      {session.status === "authenticated"
+                        ? `${session.data.user.username[0].toUpperCase()}`
+                        : "CN"}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="hidden xl:block">
                     <h2
@@ -86,10 +92,14 @@ export function LaptopNavigaton() {
                         "font-semibold": "/profile".includes(pathname),
                       })}
                     >
-                      Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd
+                      {session.status === "authenticated"
+                        ? `${session.data.user.email}`
+                        : "Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd"}
                     </h2>
                     <span className="text-sm text-muted-foreground opacity-75">
-                      @sshebastian
+                      {session.status === "authenticated"
+                        ? `@${session.data?.user.username}`
+                        : "@testing"}
                     </span>
                   </div>
                 </Link>

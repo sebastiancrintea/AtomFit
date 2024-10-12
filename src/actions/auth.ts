@@ -1,5 +1,6 @@
 import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 type registerParams = {
@@ -51,4 +52,9 @@ export const loginAction = async (body: loginParams) => {
   } catch (error) {
     return checkError(error);
   }
+};
+
+export const logoutAction = async () => {
+  await signOut();
+  redirect("/");
 };

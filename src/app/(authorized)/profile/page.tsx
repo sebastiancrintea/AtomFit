@@ -16,12 +16,14 @@ import { CreateWorkoutDrawer } from "@/components/shared/workout/create-workout-
 import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exercise-drawer";
 import { SettingsDropdown } from "./_components/settings-dropdown";
 import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
+import { auth } from "@/app/api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const session = await auth();
   return (
     <>
       <header className="mb-4 flex items-center justify-between">
@@ -31,10 +33,12 @@ export default function ProfilePage() {
           </Avatar>
           <div className="hidden lg:block">
             <h2 className="text-xl font-semibold transition-all">
-              Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd
+              {session?.user
+                ? `${session.user.email}`
+                : "Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd"}
             </h2>
             <span className="text-base text-muted-foreground opacity-75">
-              @sshebastian
+              {session?.user ? `@${session.user.username}` : "@testing"}
             </span>
           </div>
         </div>
@@ -61,14 +65,22 @@ export default function ProfilePage() {
         </TabsList>
         <TabsContent value="info">
           <section className="flex w-full flex-col gap-2 lg:flex-row">
-            <GoalChart />
+            {session?.user && (
+              <GoalChart
+                goal={session.user.user_attr.goal}
+                start={session.user.user_attr.weight}
+                finish={session.user.user_attr.weight_goal}
+              />
+            )}
             <div className="w-full space-y-2">
               <h2>Goals</h2>
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-xl font-normal">Weight</h3>
                   <Badge className="select-none text-xl transition-all md:text-2xl">
-                    75 kg
+                    {session?.user
+                      ? `${session.user.user_attr.weight_goal} kg`
+                      : "testing kg"}
                   </Badge>
                 </div>
                 <span className="text-muted-foreground">

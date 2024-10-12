@@ -17,25 +17,35 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { Button } from "@/components/ui/button";
-import { GiWeightScale } from "react-icons/gi";
 import { UpdateWeightDialog } from "../../../../components/shared/update-current-weight/update-current-weight-dialog";
 
-const chartData = [
-  { goal: "lose", lost: 14, fill: "var(--color-goal)", start: 90, finish: 75 },
-];
+type Props = {
+  goal: string;
+  start: number;
+  finish: number;
+};
 
-const chartConfig = {
-  lost: {
-    label: "kg lost",
-  },
-  goal: {
-    label: "Lose",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig;
+export function GoalChart({ goal, start, finish }: Props) {
+  const chartData = [
+    {
+      goal: goal,
+      lost: 14,
+      fill: "var(--color-goal)",
+      start: start,
+      finish: finish,
+    },
+  ];
 
-export function GoalChart() {
+  const chartConfig = {
+    lost: {
+      label: "kg lost",
+    },
+    goal: {
+      label: "Lose",
+      color: "hsl(var(--chart-5))",
+    },
+  } satisfies ChartConfig;
+
   const loseGoal = chartData[0].start - chartData[0].finish;
   return (
     <Card className="flex w-full flex-col">
