@@ -14,6 +14,7 @@ const exercise = z.object({
 
 export const createWorkoutSchema = z.object({
   name: z.string().min(2).max(50),
+  description: z.string().min(2).max(500),
   exercises: z.array(exercise),
 });
 
@@ -21,5 +22,6 @@ export type createWorkoutType = z.infer<typeof createWorkoutSchema>;
 
 export const createWorkoutDefault = {
   name: "",
+  description: "",
   exercises: [],
 };

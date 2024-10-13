@@ -1,10 +1,9 @@
-"use client";
-
 import { NavigateBackButton } from "@/components/shared/navigate-back";
 import { Button } from "@/components/ui/button";
 import { ExerciseCard } from "./_components/exercise-card";
 import { ExercisesCarousel } from "./_components/exercises-carousel";
 import Link from "next/link";
+import { getWorkoutById } from "@/actions/workout";
 
 const exercises = [
   {
@@ -150,10 +149,9 @@ type Props = {
   params: { id: string };
 };
 
-import { DndContext } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable";
-
-export default function SingleWorkout({ searchParams, params }: Props) {
+export default async function SingleWorkout({ searchParams, params }: Props) {
+  const data = await getWorkoutById(+params.id);
+  console.log(data);
   return (
     <>
       {searchParams?.start ? (
@@ -187,13 +185,13 @@ export default function SingleWorkout({ searchParams, params }: Props) {
             <h4 className="font-mono text-base">20 mins | 16 Exercises</h4>
           </div>
           <ul className="space-y-2">
-            <DndContext>
-              <SortableContext items={exercises}>
-                {exercises.map((exercise, index) => (
-                  <ExerciseCard key={index} exercise={exercise} />
-                ))}
-              </SortableContext>
-            </DndContext>
+            {/* <DndContext>
+              <SortableContext items={exercises}> */}
+            {exercises.map((exercise, index) => (
+              <ExerciseCard key={index} exercise={exercise} />
+            ))}
+            {/* </SortableContext>
+            </DndContext> */}
           </ul>
         </section>
       )}

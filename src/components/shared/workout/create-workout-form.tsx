@@ -40,6 +40,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { createWorkout } from "@/actions/workout";
+import { Textarea } from "@/components/ui/textarea";
 
 type Exercise = {
   id: number;
@@ -98,6 +99,25 @@ export function CreateWorkoutForm() {
                 <FormLabel className="text-2xl font-semibold">Name</FormLabel>
                 <FormControl>
                   <Input
+                    {...field}
+                    placeholder="Chest Beginner"
+                    className="text-base"
+                  />
+                </FormControl>
+                <FormMessage className="text-base" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="space-y-0">
+                <FormLabel className="text-2xl font-semibold">
+                  Description
+                </FormLabel>
+                <FormControl>
+                  <Textarea
                     {...field}
                     placeholder="Chest Beginner"
                     className="text-base"

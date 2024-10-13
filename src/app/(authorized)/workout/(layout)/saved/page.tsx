@@ -1,36 +1,24 @@
 import { getSavedWorkouts } from "@/actions/workout";
 import { WorkoutCard } from "../../_components/workout-card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { PaginationComponent } from "@/components/shared/pagination/pagination";
+import { Workout } from "@/types/workout";
 
 type Props = {
   searchParams?: { q?: string };
 };
 
 export default async function WorkoutSavedPage({ searchParams }: Props) {
-  const perPage = 20;
-  const data = await getSavedWorkouts(searchParams?.q);
+  const data: Workout[] = await getSavedWorkouts(searchParams?.q);
+  console.log(data);
   // if (data.error) return data.error;
   return (
     <>
       <ul className="grid justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        {Array.from({ length: 50 }).map((_, index) => (
+        {data.map((workout, index) => (
           <li key={index} className="w-full max-w-md">
-            <WorkoutCard />
+            <WorkoutCard workout={workout} />
           </li>
         ))}
       </ul>
-      {/* <footer>
-        <PaginationComponent />
-      </footer> */}
     </>
   );
 }
