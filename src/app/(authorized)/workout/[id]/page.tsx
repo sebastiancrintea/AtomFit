@@ -151,14 +151,16 @@ type Props = {
 
 export default async function SingleWorkout({ searchParams, params }: Props) {
   const data = await getWorkoutById(+params.id);
-  console.log(data);
+  const workoutExercises = data.workout_exercises;
   return (
     <>
       {searchParams?.start ? (
         <>
           <header className="flex items-center gap-2">
             <NavigateBackButton />
-            <h1>Workout Title</h1>
+            <h1 className="text-xl uppercase lg:text-4xl">
+              {data ? data.name : "Workout Title"}
+            </h1>
           </header>
           <ExercisesCarousel exercises={exercises} />
         </>
@@ -167,10 +169,14 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
           <section className="relative aspect-video rounded-xl bg-secondary">
             <div className="absolute top-0 flex items-center gap-2 rounded-br-xl rounded-tl-xl bg-primary p-2">
               <NavigateBackButton />
-              <h1 className="text-xl uppercase lg:text-4xl">Workout Title</h1>
+              <h1 className="text-xl uppercase lg:text-4xl">
+                {data ? data.name : "Workout Title"}
+              </h1>
             </div>
             <div className="absolute bottom-2 left-2 hidden border-l-4 border-primary p-2 sm:block">
-              <h4 className="font-mono">20 mins | 16 Exercises</h4>
+              <h4 className="font-mono">
+                | {workoutExercises.length} Exercises
+              </h4>
             </div>
             <div className="absolute bottom-2 right-2">
               <Button
@@ -182,16 +188,14 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
             </div>
           </section>
           <div className="border-l-4 border-primary px-2 sm:hidden">
-            <h4 className="font-mono text-base">20 mins | 16 Exercises</h4>
+            <h4 className="font-mono text-base">
+              | {workoutExercises.length} Exercises
+            </h4>
           </div>
           <ul className="space-y-2">
-            {/* <DndContext>
-              <SortableContext items={exercises}> */}
             {exercises.map((exercise, index) => (
               <ExerciseCard key={index} exercise={exercise} />
             ))}
-            {/* </SortableContext>
-            </DndContext> */}
           </ul>
         </section>
       )}

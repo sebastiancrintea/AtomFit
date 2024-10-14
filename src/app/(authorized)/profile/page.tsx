@@ -29,7 +29,9 @@ export default async function ProfilePage() {
       <header className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2 overflow-hidden">
           <Avatar className="size-24">
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>
+              {session ? `${session.user.username[0].toUpperCase()}` : "CN"}
+            </AvatarFallback>
           </Avatar>
           <div className="hidden lg:block">
             <h2 className="text-xl font-semibold transition-all">

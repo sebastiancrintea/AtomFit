@@ -1,5 +1,5 @@
 import { getAuthHeaders } from "@/lib/authHeader";
-import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
+import { checkError, BASE_URL } from "@/lib/fetchUtils";
 
 import { toast } from "sonner";
 
@@ -11,11 +11,13 @@ type createExerciseParams = {
   muscles: string[];
 };
 
-export const getExercises = async () => {
+export const getExercises = async (q?: string) => {
+  const url = q ? `${BASE_URL}/exercises?search=${q}` : `${BASE_URL}/exercises`;
   try {
-    const response = await fetch(`${BASE_URL}/exercises`, {
+    const response = await fetch(url, {
       method: "GET",
       headers: await getAuthHeaders(),
+      next: { revalidate: 0 },
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
@@ -34,8 +36,7 @@ export const createExercise = async (body: createExerciseParams) => {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
-
-    toast.success(data.success);
+    toast.success("You created a new exercise with success!");
     return data;
   } catch (error) {
     return checkError(error);

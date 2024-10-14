@@ -2,12 +2,13 @@ import { YoutubeEmbed } from "@/components/shared/youtube-embed";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { Exercise } from "@/types/exercise";
 
 type Props = {
@@ -17,8 +18,8 @@ type Props = {
 export function ExerciseCard({ exercise }: Props) {
   return (
     <>
-      <Sheet>
-        <SheetTrigger asChild>
+      <Dialog>
+        <DialogTrigger asChild>
           <Card className="cursor-pointer border-2 bg-popover transition-all hover:scale-105">
             <CardHeader className="p-4">
               <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div>
@@ -36,11 +37,11 @@ export function ExerciseCard({ exercise }: Props) {
               </CardDescription>
             </CardHeader>
           </Card>
-        </SheetTrigger>
-        <SheetContent className="min-w-[600px]">
-          <SheetHeader>
-            <SheetTitle className="text-3xl">{exercise.name}</SheetTitle>
-          </SheetHeader>
+        </DialogTrigger>
+        <DialogContent className="md:min-w-[700px]">
+          <DialogHeader>
+            <DialogTitle className="text-3xl">{exercise.name}</DialogTitle>
+          </DialogHeader>
           <section className="mt-2">
             <YoutubeEmbed embedId={exercise.tutorial_link.slice(32)} />
             <h2>Focus Area</h2>
@@ -53,8 +54,8 @@ export function ExerciseCard({ exercise }: Props) {
             </div>
             <p>{exercise.description}</p>
           </section>
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
