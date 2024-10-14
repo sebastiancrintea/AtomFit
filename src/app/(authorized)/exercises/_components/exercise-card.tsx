@@ -20,7 +20,7 @@ export function ExerciseCard({ exercise }: Props) {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Card className="cursor-pointer border-2 bg-popover transition-all hover:scale-105">
+          <Card className="cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:scale-105">
             <CardHeader className="p-4">
               <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div>
 

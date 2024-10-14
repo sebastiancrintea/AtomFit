@@ -11,8 +11,17 @@ type createExerciseParams = {
   muscles: string[];
 };
 
-export const getExercises = async (q?: string) => {
-  const url = q ? `${BASE_URL}/exercises?search=${q}` : `${BASE_URL}/exercises`;
+export const getExercises = async (
+  search: string | undefined,
+  tags: string[] | undefined,
+) => {
+  const url = new URL(`${BASE_URL}/exercises`);
+  search
+    ? url.searchParams.append("search", search)
+    : url.searchParams.delete("search");
+  tags
+    ? url.searchParams.append("tags", tags.toLocaleString())
+    : url.searchParams.delete("tags");
   try {
     const response = await fetch(url, {
       method: "GET",

@@ -17,7 +17,7 @@ export function SearchBox({ placeholder }: Props) {
 
   const handleSearch = useDebouncedCallback((q: string) => {
     const params = new URLSearchParams(searchParams);
-    q ? params.set("q", q) : params.delete("q");
+    q ? params.set("search", q) : params.delete("search");
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 100);
 

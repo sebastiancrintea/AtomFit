@@ -162,7 +162,7 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
               {data ? data.name : "Workout Title"}
             </h1>
           </header>
-          <ExercisesCarousel exercises={exercises} />
+          <ExercisesCarousel exercises={workoutExercises} />
         </>
       ) : (
         <section className="h-full w-full space-y-2 rounded-xl border-2 bg-popover p-2">
