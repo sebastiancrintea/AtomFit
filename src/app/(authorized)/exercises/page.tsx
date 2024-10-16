@@ -6,14 +6,16 @@ import { SearchBox } from "@/components/shared/search-box";
 import { ExerciseFilter } from "./_components/exercise-filter";
 
 type Props = {
-  searchParams?: { search?: string; tags?: string[] };
+  searchParams?: { search?: string; tags?: string[]; page?: string };
 };
 
+const per_page = 20;
+
 export default async function ExercisesPage({ searchParams }: Props) {
-  const data: Exercise[] = await getExercises(
-    searchParams?.search,
-    searchParams?.tags,
-  );
+  const currentPage = searchParams?.page ? +searchParams.page : 1;
+  const offset = per_page * (currentPage - 1);
+
+  const data: Exercise[] = await getExercises({ searchParams, offset });
   return (
     <>
       <header className="sticky top-2 z-50 mb-2 flex items-center gap-2 rounded-xl bg-popover p-2">
@@ -24,17 +26,15 @@ export default async function ExercisesPage({ searchParams }: Props) {
         </div>
         <ExerciseFilter />
       </header>
-      <ul className="grid justify-items-center gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <section className="columns-[250px] space-y-2">
         {data && data.length >= 1 ? (
           data.map((exercise, index) => (
-            <li key={index}>
-              <ExerciseCard exercise={exercise} />
-            </li>
+            <ExerciseCard key={index} exercise={exercise} />
           ))
         ) : (
           <h3>No Exercises found</h3>
         )}
-      </ul>
+      </section>
     </>
   );
 }

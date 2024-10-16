@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoLogIn } from "react-icons/io5";
 import { AtomFitLogo } from "@/components/shared/atom-fit-logo";
+import { auth } from "./api/auth/[...nextauth]/auth";
+import { redirect } from "next/navigation";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
+  if (session) redirect("/home");
   return (
     <>
       <section className="net-grid h-screen w-full"></section>

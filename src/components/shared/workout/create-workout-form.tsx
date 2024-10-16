@@ -62,7 +62,7 @@ export function CreateWorkoutForm() {
 
   const { data: exercises, isLoading } = useQuery({
     queryKey: ["exercises"],
-    queryFn: () => getExercises(),
+    queryFn: () => getExercises({}),
   });
 
   const { mutateAsync, isPending } = useMutation({

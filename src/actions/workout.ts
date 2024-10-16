@@ -28,6 +28,21 @@ export const createWorkout = async (body: createWorkoutParams) => {
   }
 };
 
+export const getWorkouts = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/workouts`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+      next: { revalidate: 0 },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};
+
 export const getSavedWorkouts = async (q?: string) => {
   try {
     const response = await fetch(`${BASE_URL}/workouts`, {

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Exercise } from "@/types/exercise";
+import { LikeBtn } from "./like-btn";
 
 type Props = {
   exercise: Exercise;
@@ -20,7 +21,7 @@ export function ExerciseCard({ exercise }: Props) {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Card className="cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:scale-105">
+          <Card className="group relative w-[260px] cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:brightness-125">
             <CardHeader className="p-4">
               <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div>
 
@@ -29,13 +30,16 @@ export function ExerciseCard({ exercise }: Props) {
               </h2>
               <div className="flex flex-wrap gap-1">
                 {exercise.muscles.map((muscle, index) => (
-                  <Badge key={index}>{muscle}</Badge>
+                  <Badge key={index} className="uppercase">
+                    {muscle}
+                  </Badge>
                 ))}
               </div>
               <CardDescription className="font-semibold">
                 {exercise.description}
               </CardDescription>
             </CardHeader>
+            <LikeBtn />
           </Card>
         </DialogTrigger>
         <DialogContent className="md:min-w-[700px]">
