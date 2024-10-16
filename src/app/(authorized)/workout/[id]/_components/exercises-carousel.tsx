@@ -11,16 +11,14 @@ import {
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { WorkoutExercisePage } from "./workout-exercise-page";
+import { Exercise } from "@/types/exercise";
 
 type Props = {
   exercises: {
-    id: number;
-    name: string;
-    description: string;
-    video_url: string;
-    type: string;
-    muscles: string[];
-    time: number;
+    workout_id: number;
+    exercise_id: number;
+    duration: number;
+    exercise: Exercise;
   }[];
 };
 

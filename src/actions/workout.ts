@@ -28,9 +28,34 @@ export const createWorkout = async (body: createWorkoutParams) => {
   }
 };
 
-export const getWorkouts = async () => {
+type getWorkoutParams = {
+  searchParams?: {
+    search?: string;
+    tags?: string[];
+    page?: string;
+  };
+  offset?: number;
+};
+
+export const getWorkouts = async ({
+  searchParams,
+  offset,
+}: getWorkoutParams) => {
+  const url = new URL(`${BASE_URL}/workouts`);
+  searchParams?.search
+    ? url.searchParams.append("search", searchParams.search)
+    : url.searchParams.delete("search");
+  searchParams?.tags
+    ? url.searchParams.append("tags", searchParams.tags.toLocaleString())
+    : url.searchParams.delete("tags");
+  searchParams?.tags
+    ? url.searchParams.append("tags", searchParams.tags.toLocaleString())
+    : url.searchParams.delete("tags");
+  offset
+    ? url.searchParams.append("offset", String(offset))
+    : url.searchParams.delete("offset");
   try {
-    const response = await fetch(`${BASE_URL}/workouts`, {
+    const response = await fetch(url, {
       method: "GET",
       headers: await getAuthHeaders(),
       next: { revalidate: 0 },
@@ -39,7 +64,7 @@ export const getWorkouts = async () => {
     if (!response.ok) throw new Error(data.detail);
     return data;
   } catch (error) {
-    return checkErrorNoToast(error);
+    return checkError(error);
   }
 };
 

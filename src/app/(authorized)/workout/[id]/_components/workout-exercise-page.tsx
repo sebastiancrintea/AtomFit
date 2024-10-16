@@ -3,17 +3,15 @@ import { YoutubeEmbed } from "@/components/shared/youtube-embed";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useCountdown } from "@/hooks/useCountdown";
+import { Exercise } from "@/types/exercise";
 import { FaPlay, FaPause } from "react-icons/fa";
 
 type Props = {
   exercise: {
-    id: number;
-    name: string;
-    description: string;
-    video_url: string;
-    type: string;
-    muscles: string[];
-    time: number;
+    workout_id: number;
+    exercise_id: number;
+    duration: number;
+    exercise: Exercise;
   };
 };
 
@@ -21,24 +19,27 @@ export function WorkoutExercisePage({ exercise }: Props) {
   const { secondsLeft, start, pause, resume, started, isRunning } =
     useCountdown();
 
-  const url = new URL(exercise.video_url);
-  const params = new URLSearchParams(url.search);
-  const video_id = params.get("v");
-
   return (
     <>
       <div className="group aspect-video overflow-hidden rounded-xl border-2 bg-popover">
-        {video_id && <YoutubeEmbed embedId={video_id} />}
+        {exercise.exercise.tutorial_link && (
+          <YoutubeEmbed embedId={exercise.exercise.tutorial_link.slice(32)} />
+        )}
       </div>
       <section className="flex items-center justify-between">
-        <h1 className="uppercase">{exercise.name}</h1>
-        {exercise.type === "duration" ? (
+        <h1 className="uppercase">{exercise.exercise.name}</h1>
+        {exercise.exercise.is_duration ? (
           <div className="flex items-center gap-1">
             <Badge className="text-xl">
-              {secondsLeft ? `00:${secondsLeft}` : `00:${exercise.time}`}
+              {secondsLeft
+                ? `00:${secondsLeft}`
+                : `00:${exercise.exercise.duration}`}
             </Badge>
             {!started && secondsLeft === 0 && (
-              <Button size={"icon"} onClick={() => start(exercise.time)}>
+              <Button
+                size={"icon"}
+                onClick={() => start(exercise.exercise.duration)}
+              >
                 <FaPlay size={24} />
               </Button>
             )}
@@ -54,17 +55,17 @@ export function WorkoutExercisePage({ exercise }: Props) {
             )}
           </div>
         ) : (
-          <Badge className="text-xl">x{exercise.time}</Badge>
+          <Badge className="text-xl">x{exercise.exercise.duration}</Badge>
         )}
       </section>
       <div className="flex items-center gap-1">
-        {exercise.muscles.map((muscle, index) => (
+        {exercise.exercise.muscles.map((muscle, index) => (
           <Badge key={index} className="font-mono text-sm uppercase">
             {muscle}
           </Badge>
         ))}
       </div>
-      <p className="text-muted-foreground">{exercise.description}</p>
+      <p className="text-muted-foreground">{exercise.exercise.description}</p>
     </>
   );
 }

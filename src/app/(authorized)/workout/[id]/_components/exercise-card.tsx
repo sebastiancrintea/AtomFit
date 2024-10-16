@@ -1,27 +1,20 @@
 "use client";
 
+import { YoutubeEmbed } from "@/components/shared/youtube-embed";
 import { Badge } from "@/components/ui/badge";
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Exercise } from "@/types/exercise";
 import { useSortable } from "@dnd-kit/sortable";
 import { MdDragIndicator } from "react-icons/md";
 
 type Props = {
-  exercise: {
-    id: number;
-    name: string;
-    type: string;
-    time: number;
-    description: string;
-    muscles: string[];
-    video_url: string;
-  };
+  exercise: Exercise;
 };
 
 export function ExerciseCard({ exercise }: Props) {
@@ -36,32 +29,38 @@ export function ExerciseCard({ exercise }: Props) {
       className="flex items-center gap-1 rounded-xl border-2 p-2"
     >
       <MdDragIndicator size={32} />
-      <Sheet>
-        <SheetTrigger asChild>
+
+      <Dialog>
+        <DialogTrigger asChild>
           <div className="w-full cursor-pointer">
             <h2 className="text-xl uppercase sm:text-2xl lg:text-3xl">
               {exercise.name}
             </h2>
-            <p className="font-mono text-muted-foreground">{exercise.time}</p>
+            <p className="font-mono text-muted-foreground">
+              {exercise.is_duration
+                ? `${exercise.duration} seconds`
+                : `x${exercise.duration}`}
+            </p>
           </div>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle className="text-3xl">{exercise.name}</SheetTitle>
-            <SheetDescription>{exercise.description}</SheetDescription>
-          </SheetHeader>
+        </DialogTrigger>
+        <DialogContent className="md:min-w-[700px]">
+          <DialogHeader>
+            <DialogTitle className="text-3xl">{exercise.name}</DialogTitle>
+          </DialogHeader>
           <section className="mt-2">
+            <YoutubeEmbed embedId={exercise.tutorial_link.slice(32)} />
             <h2>Focus Area</h2>
             <div className="mt-2 flex flex-wrap items-center gap-1">
-              {exercise.muscles.map((area, index) => (
-                <Badge key={index} className="text-lg">
-                  {area}
+              {exercise.muscles.map((muscle, index) => (
+                <Badge key={index} className="text-lg uppercase">
+                  {muscle}
                 </Badge>
               ))}
             </div>
+            <p>{exercise.description}</p>
           </section>
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
     </li>
   );
 }

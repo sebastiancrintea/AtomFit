@@ -11,7 +11,7 @@ export const links = [
     icon: GoHome,
   },
   {
-    path: "/workout/saved",
+    path: "/workout",
     title: "Workout",
     iconFill: GoClockFill,
     icon: GoClock,

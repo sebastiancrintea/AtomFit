@@ -51,7 +51,7 @@ export function ExerciseCard({ exercise }: Props) {
             <h2>Focus Area</h2>
             <div className="mt-2 flex flex-wrap items-center gap-1">
               {exercise.muscles.map((muscle, index) => (
-                <Badge key={index} className="text-lg">
+                <Badge key={index} className="text-lg uppercase">
                   {muscle}
                 </Badge>
               ))}
