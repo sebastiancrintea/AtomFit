@@ -4,18 +4,14 @@ import { Exercise } from "@/types/exercise";
 import { Suspense } from "react";
 import { SearchBox } from "@/components/shared/search-box";
 import { ExerciseFilter } from "./_components/exercise-filter";
+import { PaginationComponent } from "@/components/shared/pagination/pagination";
 
 type Props = {
-  searchParams?: { search?: string; tags?: string[]; page?: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-const per_page = 20;
-
 export default async function ExercisesPage({ searchParams }: Props) {
-  const currentPage = searchParams?.page ? +searchParams.page : 1;
-  const offset = per_page * (currentPage - 1);
-
-  const data: Exercise[] = await getExercises({ searchParams, offset });
+  const data: Exercise[] = await getExercises({ searchParams });
   return (
     <>
       <header className="sticky top-2 z-50 mb-2 flex items-center gap-2 rounded-xl bg-popover p-2">
@@ -26,15 +22,19 @@ export default async function ExercisesPage({ searchParams }: Props) {
         </div>
         <ExerciseFilter />
       </header>
-      <section className="columns-[250px] space-y-2">
-        {data && data.length >= 1 ? (
-          data.map((exercise, index) => (
-            <ExerciseCard key={index} exercise={exercise} />
-          ))
-        ) : (
-          <h3>No Exercises found</h3>
-        )}
-      </section>
+      {data && data.length >= 1 ? (
+        <>
+          <section className="mb-2 columns-[250px] space-y-2">
+            {data.map((exercise, index) => (
+              <ExerciseCard key={index} exercise={exercise} />
+            ))}
+          </section>
+
+          <PaginationComponent />
+        </>
+      ) : (
+        <h3>No Exercises found</h3>
+      )}
     </>
   );
 }

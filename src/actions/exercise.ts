@@ -13,30 +13,27 @@ type createExerciseParams = {
 
 type getExercisesParams = {
   searchParams?: {
-    search?: string;
-    tags?: string[];
-    page?: string;
+    [key: string]: string | string[] | undefined;
   };
-  offset?: number;
 };
 
-export const getExercises = async ({
-  searchParams,
-  offset,
-}: getExercisesParams) => {
+export const getExercises = async ({ searchParams }: getExercisesParams) => {
+  const offset =
+    searchParams?.limit &&
+    searchParams?.page &&
+    +searchParams?.limit * (+searchParams?.page - 1);
   const url = new URL(`${BASE_URL}/exercises`);
-  searchParams?.search
-    ? url.searchParams.append("search", searchParams.search)
-    : url.searchParams.delete("search");
-  searchParams?.tags
-    ? url.searchParams.append("tags", searchParams.tags.toLocaleString())
-    : url.searchParams.delete("tags");
-  searchParams?.tags
-    ? url.searchParams.append("tags", searchParams.tags.toLocaleString())
-    : url.searchParams.delete("tags");
-  offset
-    ? url.searchParams.append("offset", String(offset))
-    : url.searchParams.delete("offset");
+
+  if (offset !== undefined && offset) {
+    const obj = { ...searchParams, offset };
+    const params = new URLSearchParams({ ...obj });
+    url.search = params.toString();
+  } else {
+    const obj = { ...searchParams };
+    const params = new URLSearchParams({ ...obj });
+    url.search = params.toString();
+  }
+  console.log(url);
   try {
     const response = await fetch(url, {
       method: "GET",

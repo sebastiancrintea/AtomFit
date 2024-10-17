@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import {
   Pagination,
@@ -10,27 +10,35 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useDebouncedCallback } from "use-debounce";
 
 export function PaginationComponent() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const page = searchParams.get("page") ?? "1";
-  const perPage = searchParams.get("per_page") ?? "5";
+  const limit = searchParams.get("limit") ?? "20";
 
-  // const handleSearch = useDebouncedCallback((q: string) => {
-  //   const params = new URLSearchParams(searchParams);
-  //   q ? params.set("offset", q) : params.delete("offset");
-  //   router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  // }, 100);
+  const prev = () => {
+    if (+page - 1 <= 0) return;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", `${+page - 1}`);
+    params.set("limit", limit);
+    router.push(`?${params.toString()}`);
+  };
+  const next = () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", `${+page + 1}`);
+    params.set("limit", limit);
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              href={`/workout/saved?page=${Number(page) - 1}&per_page=${perPage}`}
+              className={`cursor-pointer select-none ${+page - 1 <= 0 && "text-muted-foreground"}`}
+              onClick={prev}
             />
           </PaginationItem>
           <PaginationItem>
@@ -40,7 +48,10 @@ export function PaginationComponent() {
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext
+              className="cursor-pointer select-none"
+              onClick={next}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
