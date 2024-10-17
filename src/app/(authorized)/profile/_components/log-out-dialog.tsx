@@ -12,11 +12,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { IoLogOut } from "react-icons/io5";
 
 export function LogOutDialog() {
-  const router = useRouter();
   return (
     <>
       <AlertDialog>

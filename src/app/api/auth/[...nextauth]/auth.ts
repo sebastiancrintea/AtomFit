@@ -6,6 +6,7 @@ import type {
 } from "next";
 import { getServerSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signOut } from "next-auth/react";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -60,12 +61,18 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       session.access_token = token.access_token;
-      if (session.access_token ?? false) {
+      if (session.user ?? false) {
         const userData = await fetch(`${BASE_URL}/users/attributes`, {
           headers: { Authorization: `Bearer ${token.access_token}` },
         });
+        const data = await userData.json();
         if (userData.ok) {
-          session.user = await userData.json();
+          session.user = data;
+        } else {
+          signOut({
+            callbackUrl: "/auth/login",
+            redirect: true,
+          });
         }
       }
       // console.log(session);

@@ -80,3 +80,18 @@ export const updateGoals = async (body: updateGoalsType) => {
     return checkError(error);
   }
 };
+
+export const getMacronutrients = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/nutrients/daily-goal`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};

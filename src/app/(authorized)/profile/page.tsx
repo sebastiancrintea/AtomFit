@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button";
 import { GoalChart } from "./_components/goal-chart";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { SlNotebook } from "react-icons/sl";
-import { GiHotMeal, GiMuscleUp } from "react-icons/gi";
+import { GiMuscleUp } from "react-icons/gi";
 import { FaDumbbell } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
 import Link from "next/link";
@@ -17,7 +16,7 @@ import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exerci
 import { SettingsDropdown } from "./_components/settings-dropdown";
 import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
-import { getCurrentWeight } from "@/actions/profile";
+import { getCurrentWeight, getMacronutrients } from "@/actions/profile";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -25,7 +24,11 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await auth();
-  const currentWeight = await getCurrentWeight();
+
+  const [currentWeight, macroNutrients] = await Promise.all([
+    getCurrentWeight(),
+    getMacronutrients(),
+  ]);
   return (
     <>
       <header className="mb-4 flex items-center justify-between">
@@ -88,19 +91,17 @@ export default async function ProfilePage() {
                       : "testing kg"}
                   </Badge>
                 </div>
-                <span className="text-muted-foreground">
-                  Lose 0.5 kg per week
-                </span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-xl font-normal">Daily calories</h3>
                   <Badge className="select-none text-xl transition-all md:text-2xl">
-                    1,980 cal
+                    {macroNutrients.Calories} cal
                   </Badge>
                 </div>
                 <span className="text-muted-foreground">
-                  Carbs 248g | Fat 66g | Protein 99g
+                  Carbs {macroNutrients.Carbohydrats}g | Fat
+                  {macroNutrients.Fats}g | Protein {macroNutrients.Proteins}g
                 </span>
               </div>
               <UpdateGoals />
