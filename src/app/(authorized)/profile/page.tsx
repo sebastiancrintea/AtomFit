@@ -17,6 +17,7 @@ import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exerci
 import { SettingsDropdown } from "./_components/settings-dropdown";
 import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { getCurrentWeight } from "@/actions/profile";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await auth();
+  const currentWeight = await getCurrentWeight();
   return (
     <>
       <header className="mb-4 flex items-center justify-between">
@@ -70,8 +72,9 @@ export default async function ProfilePage() {
             {session?.user && (
               <GoalChart
                 goal={session.user.user_attr.goal}
-                start={session.user.user_attr.weight}
+                start={currentWeight[0].weight}
                 finish={session.user.user_attr.weight_goal}
+                current={currentWeight[currentWeight.length - 1].weight}
               />
             )}
             <div className="w-full space-y-2">
@@ -107,24 +110,6 @@ export default async function ProfilePage() {
 
         <TabsContent value="items">
           <ul className="space-y-1">
-            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
-              <div className="flex items-center gap-2">
-                <GiHotMeal size={32} />
-                <h3>
-                  <span>0</span> Meals
-                </h3>
-              </div>
-              <Button className="font-semibold md:text-lg">CREATE</Button>
-            </li>
-            <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
-              <div className="flex items-center gap-2">
-                <SlNotebook size={32} />
-                <h3>
-                  <span>0</span> Recipes
-                </h3>
-              </div>
-              <Button className="font-semibold md:text-lg">CREATE</Button>
-            </li>
             <li className="flex items-center justify-between rounded-xl border-2 bg-popover px-4 py-2 transition-all hover:brightness-125">
               <div className="flex items-center gap-2">
                 <FaDumbbell size={32} />

@@ -8,6 +8,7 @@ import { getServerSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   providers: [

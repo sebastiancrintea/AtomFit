@@ -1,7 +1,13 @@
 import { getAuthHeaders } from "@/lib/authHeader";
-import { checkError, BASE_URL, HEADERS } from "@/lib/fetchUtils";
+import {
+  checkError,
+  BASE_URL,
+  HEADERS,
+  checkErrorNoToast,
+} from "@/lib/fetchUtils";
 import { editProfileFormType } from "@/schemas/edit-profile-schema";
 import { updateGoalsType } from "@/schemas/update-goals-schema";
+import { revalidateTag } from "next/cache";
 
 import { toast } from "sonner";
 
@@ -13,12 +19,29 @@ export const updateCurrentWeight = async ({ weight }: { weight: number }) => {
       body: JSON.stringify({ weight }),
     });
     const data = await response.json();
+    console.log(response, data);
     if (!response.ok) throw new Error(data.detail);
-
+    revalidateTag("getCurrentWeight");
     toast.success(data.success);
     return data;
   } catch (error) {
     return checkError(error);
+  }
+};
+
+export const getCurrentWeight = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/attributes/weight`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+      next: { revalidate: 0, tags: ["getCurrentWeight"] },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
   }
 };
 

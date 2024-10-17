@@ -23,13 +23,14 @@ type Props = {
   goal: string;
   start: number;
   finish: number;
+  current: number;
 };
 
-export function GoalChart({ goal, start, finish }: Props) {
+export function GoalChart({ goal, start, finish, current }: Props) {
   const chartData = [
     {
       goal: goal,
-      lost: 14,
+      lost: start < finish ? current - start : start - current,
       fill: "var(--color-goal)",
       start: start,
       finish: finish,
@@ -46,7 +47,11 @@ export function GoalChart({ goal, start, finish }: Props) {
     },
   } satisfies ChartConfig;
 
-  const loseGoal = chartData[0].start - chartData[0].finish;
+  // const loseGoal = chartData[0].start - chartData[0].finish;
+  const loseGoal =
+    chartData[0].start > chartData[0].finish
+      ? chartData[0].start - chartData[0].finish
+      : chartData[0].finish - chartData[0].start;
   return (
     <Card className="flex w-full flex-col">
       <CardHeader className="items-center pb-0 pt-2">
@@ -98,7 +103,7 @@ export function GoalChart({ goal, start, finish }: Props) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          kg lost
+                          {start > finish ? "kg lost" : "kg gained"}
                         </tspan>
                       </text>
                     );
@@ -110,7 +115,7 @@ export function GoalChart({ goal, start, finish }: Props) {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col justify-center gap-1 pb-2">
-        <h4>Current: {chartData[0].start - chartData[0].lost} kg</h4>
+        <h4>Current: {current} kg</h4>
         <UpdateWeightDialog />
       </CardFooter>
     </Card>
