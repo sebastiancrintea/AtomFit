@@ -72,7 +72,6 @@ export const likeExercise = async (exercise_id: number) => {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
-    toast.success(data);
     return data;
   } catch (error) {
     return checkError(error);

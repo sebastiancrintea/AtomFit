@@ -31,15 +31,10 @@ export function WorkoutExercisePage({ exercise }: Props) {
         {exercise.exercise.is_duration ? (
           <div className="flex items-center gap-1">
             <Badge className="text-xl">
-              {secondsLeft
-                ? `00:${secondsLeft}`
-                : `00:${exercise.exercise.duration}`}
+              {secondsLeft ? `00:${secondsLeft}` : `00:${exercise.duration}`}
             </Badge>
             {!started && secondsLeft === 0 && (
-              <Button
-                size={"icon"}
-                onClick={() => start(exercise.exercise.duration)}
-              >
+              <Button size={"icon"} onClick={() => start(exercise.duration)}>
                 <FaPlay size={24} />
               </Button>
             )}
@@ -55,7 +50,7 @@ export function WorkoutExercisePage({ exercise }: Props) {
             )}
           </div>
         ) : (
-          <Badge className="text-xl">x{exercise.exercise.duration}</Badge>
+          <Badge className="text-xl">x{exercise.duration}</Badge>
         )}
       </section>
       <div className="flex items-center gap-1">
@@ -65,7 +60,9 @@ export function WorkoutExercisePage({ exercise }: Props) {
           </Badge>
         ))}
       </div>
-      <p className="text-muted-foreground">{exercise.exercise.description}</p>
+      {/* <div className="columns-2">
+        <p className="text-muted-foreground">{exercise.exercise.description}</p>
+      </div> */}
     </>
   );
 }

@@ -15,9 +15,10 @@ import { MdDragIndicator } from "react-icons/md";
 
 type Props = {
   exercise: Exercise;
+  duration: number;
 };
 
-export function ExerciseCard({ exercise }: Props) {
+export function ExerciseCard({ exercise, duration }: Props) {
   const { attributes, listeners, setNodeRef } = useSortable({
     id: exercise.id,
   });
@@ -37,9 +38,7 @@ export function ExerciseCard({ exercise }: Props) {
               {exercise.name}
             </h2>
             <p className="font-mono text-muted-foreground">
-              {exercise.is_duration
-                ? `${exercise.duration} seconds`
-                : `x${exercise.duration}`}
+              {exercise.is_duration ? `${duration} seconds` : `x${duration}`}
             </p>
           </div>
         </DialogTrigger>

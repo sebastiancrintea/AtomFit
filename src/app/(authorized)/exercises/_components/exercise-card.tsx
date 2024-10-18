@@ -22,7 +22,7 @@ export function ExerciseCard({ exercise }: Props) {
       <Dialog>
         <DialogTrigger asChild>
           <Card className="group relative w-[260px] cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:brightness-125">
-            <CardHeader className="p-4">
+            <CardHeader className="p-4 pb-1">
               <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div>
 
               <h2 className="overflow-hidden font-mono uppercase">
@@ -39,7 +39,9 @@ export function ExerciseCard({ exercise }: Props) {
                 {exercise.description}
               </CardDescription>
             </CardHeader>
-            <LikeBtn />
+            <div className="flex justify-end">
+              <LikeBtn exercise_id={exercise.id} />
+            </div>
           </Card>
         </DialogTrigger>
         <DialogContent className="md:min-w-[700px]">

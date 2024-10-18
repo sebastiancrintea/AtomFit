@@ -7,12 +7,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CreateWorkoutForm } from "./create-workout-form";
+import { Exercise } from "@/types/exercise";
 
 type Props = {
   children: React.ReactNode;
+  exercises: Exercise[];
 };
 
-export function CreateWorkoutSheet({ children }: Readonly<Props>) {
+export function CreateWorkoutSheet({ children, exercises }: Readonly<Props>) {
   return (
     <>
       <Sheet>
@@ -27,7 +29,7 @@ export function CreateWorkoutSheet({ children }: Readonly<Props>) {
               public.
             </SheetDescription>
           </SheetHeader>
-          <CreateWorkoutForm />
+          <CreateWorkoutForm exercises={exercises} />
         </SheetContent>
       </Sheet>
     </>

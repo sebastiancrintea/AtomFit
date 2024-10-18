@@ -57,7 +57,11 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
           <ul className="space-y-2">
             {workoutExercises &&
               workoutExercises.map((exercise, index) => (
-                <ExerciseCard key={index} exercise={exercise.exercise} />
+                <ExerciseCard
+                  key={index}
+                  exercise={exercise.exercise}
+                  duration={exercise.duration}
+                />
               ))}
           </ul>
         </section>
