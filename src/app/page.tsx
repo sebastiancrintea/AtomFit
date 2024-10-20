@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoLogIn } from "react-icons/io5";
 import { AtomFitLogo } from "@/components/shared/atom-fit-logo";
-import { auth } from "./api/auth/[...nextauth]/auth";
+import { auth } from "../lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function LandingPage() {

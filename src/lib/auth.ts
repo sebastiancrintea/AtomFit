@@ -9,7 +9,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { signOut } from "next-auth/react";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   providers: [

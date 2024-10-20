@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { CaloriesGoalChart } from "./_components/calories-goal-chart";
 import { create } from "@/constants/create";
 import { CreateCard } from "../create/_components/create-card";
-import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Home",

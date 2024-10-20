@@ -15,7 +15,7 @@ import { CreateWorkoutDrawer } from "@/components/shared/workout/create-workout-
 import { CreateExerciseDrawer } from "@/components/shared/exercise/create-exercise-drawer";
 import { SettingsDropdown } from "./_components/settings-dropdown";
 import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
-import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import { auth } from "@/lib/auth";
 import { getCurrentWeight, getMacronutrients } from "@/actions/profile";
 
 export const metadata: Metadata = {
