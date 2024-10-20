@@ -66,13 +66,15 @@ export const authOptions: NextAuthOptions = {
           headers: { Authorization: `Bearer ${token.access_token}` },
         });
         const data = await userData.json();
-        if (userData.ok) {
-          session.user = data;
-        } else {
+        if (data.error) {
           signOut({
             callbackUrl: "/auth/login",
             redirect: true,
           });
+          return session;
+        }
+        if (userData.ok) {
+          session.user = data;
         }
       }
       // console.log(session);

@@ -29,7 +29,7 @@ export function WorkoutCard({ workout }: Props) {
               {workout.description}
             </CardDescription>
           </CardHeader>
-          <LikeBtn />
+          {/* <LikeBtn exercise_id={exerc} /> */}
         </Card>
       </Link>
     </>

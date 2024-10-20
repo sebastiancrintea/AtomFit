@@ -136,7 +136,7 @@ export default async function ProfilePage() {
                   <span>0</span> Workouts
                 </h3>
               </div>
-              <div className="hidden md:block">
+              {/* <div className="hidden md:block">
                 <CreateWorkoutSheet>
                   <Button className="font-semibold md:text-lg">CREATE</Button>
                 </CreateWorkoutSheet>
@@ -145,7 +145,7 @@ export default async function ProfilePage() {
                 <CreateWorkoutDrawer>
                   <Button className="font-semibold md:text-lg">CREATE</Button>
                 </CreateWorkoutDrawer>
-              </div>
+              </div> */}
             </li>
           </ul>
         </TabsContent>

@@ -8,12 +8,14 @@ import {
 } from "@/components/ui/drawer";
 import { CreateWorkoutForm } from "./create-workout-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Exercise } from "@/types/exercise";
 
 type Props = {
   children: React.ReactNode;
+  exercises: Exercise[];
 };
 
-export function CreateWorkoutDrawer({ children }: Props) {
+export function CreateWorkoutDrawer({ children, exercises }: Props) {
   return (
     <>
       <Drawer>
@@ -27,7 +29,7 @@ export function CreateWorkoutDrawer({ children }: Props) {
             </DrawerDescription>
           </DrawerHeader>
           <ScrollArea className="h-[75vh] overflow-auto px-4 pb-4">
-            <CreateWorkoutForm />
+            <CreateWorkoutForm exercises={exercises} />
           </ScrollArea>
         </DrawerContent>
       </Drawer>

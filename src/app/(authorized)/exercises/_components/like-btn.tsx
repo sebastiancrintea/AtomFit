@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { GoHeart } from "react-icons/go";
-import { useOptimistic } from "react";
 
 export function LikeBtn({ exercise_id }: { exercise_id: number }) {
   return (
