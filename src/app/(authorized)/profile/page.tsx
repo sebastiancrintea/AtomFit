@@ -29,6 +29,7 @@ export default async function ProfilePage() {
     getCurrentWeight(),
     getMacronutrients(),
   ]);
+
   return (
     <>
       <header className="mb-4 flex items-center justify-between">
@@ -96,12 +97,13 @@ export default async function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <h3 className="text-xl font-normal">Daily calories</h3>
                   <Badge className="select-none text-xl transition-all md:text-2xl">
-                    {macroNutrients.Calories} cal
+                    {parseInt(macroNutrients.Calories)} cal
                   </Badge>
                 </div>
                 <span className="text-muted-foreground">
-                  Carbs {macroNutrients.Carbohydrats}g | Fat
-                  {macroNutrients.Fats}g | Protein {macroNutrients.Proteins}g
+                  Carbs {parseInt(macroNutrients.Carbohydrats)}g | Fat{" "}
+                  {parseInt(macroNutrients.Fats)}g | Protein{" "}
+                  {parseInt(macroNutrients.Proteins)}g
                 </span>
               </div>
               <UpdateGoals />
