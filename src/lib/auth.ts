@@ -10,6 +10,32 @@ import { signOut } from "next-auth/react";
 
 import { cookies } from "next/headers";
 
+// const refreshToken = async (token: any) => {
+//   console.log("refreshed token");
+//   const response = await fetch(
+//     `${BASE_URL}/auth/refresh?refresh_token=${token.refresh_token}`,
+//   );
+//   if (response.ok) {
+//     const data = await response.json();
+
+//     cookies().set({
+//       name: "access_token",
+//       value: data.access_token,
+//       httpOnly: true,
+//       secure: true,
+//     });
+
+//     return {
+//       ...token,
+//       error: null,
+//       access_token: data.access_token,
+//       access_expire: Date.now() + data.access_expire * 60 * 1000,
+//     };
+//   } else {
+//     return { error: "RefreshTokenError" };
+//   }
+// };
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -66,7 +92,7 @@ export const authOptions: NextAuthOptions = {
         });
         const data = await userData.json();
         if (data.error) {
-          cookies().delete("next-auth.session-token");
+          signOut();
           cookies().delete("access_token");
         }
         if (userData.ok) {
