@@ -66,11 +66,8 @@ export const authOptions: NextAuthOptions = {
         });
         const data = await userData.json();
         if (data.error) {
-          signOut({
-            callbackUrl: "/auth/login",
-            redirect: true,
-          });
-          return session;
+          cookies().delete("next-auth.session-token");
+          cookies().delete("access_token");
         }
         if (userData.ok) {
           session.user = data;
