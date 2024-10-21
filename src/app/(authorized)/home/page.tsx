@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   title: "Home",
 };
 
-export default async function HomePage() {
-  const session = await auth();
-  console.log(session);
+export default function HomePage() {
+  // const session = await auth();
+  // console.log(session);
   const today = new Date();
   return (
     <>

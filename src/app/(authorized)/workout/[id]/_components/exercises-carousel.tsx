@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { WorkoutExercisePage } from "./workout-exercise-page";
 import { Exercise } from "@/types/exercise";
+import Link from "next/link";
 
 type Props = {
   exercises: {
@@ -46,6 +47,19 @@ export function ExercisesCarousel({ exercises }: Props) {
               <WorkoutExercisePage exercise={exercise} />
             </CarouselItem>
           ))}
+          <CarouselItem className="flex h-[70vh] flex-col items-center justify-center">
+            <h3 className="text-center">
+              Congratulations on crushing your workout!
+            </h3>
+            <p>
+              Your hard work and dedication are paying off keep up the amazing
+              effort! Every step forward brings you closer to your goals. Keep
+              shining!
+            </p>
+            <Link href={"/workout"}>
+              <Button>Finish</Button>
+            </Link>
+          </CarouselItem>
         </CarouselContent>
 
         <div className="absolute -top-10 right-2 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">

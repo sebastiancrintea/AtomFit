@@ -1,7 +1,7 @@
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { Workout } from "@/types/workout";
 import Link from "next/link";
-import { LikeBtn } from "../../exercises/_components/like-btn";
+import { LikeBtn } from "./like-btn";
 
 type Props = {
   workout: Workout;
@@ -18,18 +18,13 @@ export function WorkoutCard({ workout }: Props) {
             <h2 className="overflow-hidden font-mono uppercase">
               {workout.name}
             </h2>
-            <div className="flex flex-wrap gap-1">
-              {/* {exercise.muscles.map((muscle, index) => (
-                    <Badge key={index} className="uppercase">
-                      {muscle}
-                    </Badge>
-                  ))} */}
-            </div>
             <CardDescription className="font-semibold">
               {workout.description}
             </CardDescription>
           </CardHeader>
-          {/* <LikeBtn exercise_id={exerc} /> */}
+          <div className="flex justify-end">
+            <LikeBtn workout_id={workout.id} />
+          </div>
         </Card>
       </Link>
     </>

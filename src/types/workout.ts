@@ -7,6 +7,7 @@ export type Workout = {
   description: string;
   tutorial_link: string;
   created_at: string;
+  likes: number;
   workout_exercises: {
     workout_id: number;
     exercise_id: number;

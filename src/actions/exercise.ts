@@ -19,20 +19,12 @@ type getExercisesParams = {
 
 export const getExercises = async ({ searchParams }: getExercisesParams) => {
   const offset =
-    searchParams?.limit &&
-    searchParams?.page &&
-    +searchParams?.limit * (+searchParams?.page - 1);
+    searchParams?.limit && searchParams?.page
+      ? +searchParams.limit * (+searchParams.page - 1)
+      : 0;
   const url = new URL(`${BASE_URL}/exercises`);
-
-  if (offset !== undefined && offset) {
-    const obj = { ...searchParams, offset: `${offset}` };
-    const params = new URLSearchParams(obj);
-    url.search = params.toString();
-  } else {
-    const obj = { ...searchParams, offset: `${0}` };
-    const params = new URLSearchParams(obj);
-    url.search = params.toString();
-  }
+  const params = new URLSearchParams({ ...searchParams, offset: `${offset}` });
+  url.search = params.toString();
   try {
     const response = await fetch(url, {
       method: "GET",

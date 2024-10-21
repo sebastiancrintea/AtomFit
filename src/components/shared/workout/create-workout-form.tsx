@@ -201,9 +201,9 @@ export function CreateWorkoutForm({ exercises }: Props) {
             </DialogContent>
           </Dialog>
           {selectedExercises &&
-            selectedExercises.map((exercise, index) => (
+            selectedExercises.map((exercise) => (
               <div
-                key={index}
+                key={exercise.id}
                 className="flex items-center justify-between rounded-lg border-2 p-2"
               >
                 <div className="relative">
