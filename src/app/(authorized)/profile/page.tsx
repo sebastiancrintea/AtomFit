@@ -52,9 +52,18 @@ export default async function ProfilePage() {
           <SettingsDropdown />
         </div>
       </header>
-      <nav>
-        <Button>INFO</Button>
-        <Button>ITEMS</Button>
+
+      <nav className="mb-2 flex items-center gap-1">
+        <Button variant={"secondary"} asChild>
+          <Link href={"/profile"} className="font-mono">
+            INFO
+          </Link>
+        </Button>
+        <Button variant={"secondary"} asChild>
+          <Link href={"?tabs=info"} className="font-mono">
+            ITEMS
+          </Link>
+        </Button>
       </nav>
 
       <section className="flex flex-col gap-2 lg:flex-row">

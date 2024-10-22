@@ -1,18 +1,19 @@
 import { Metadata } from "next";
 import { create } from "@/constants/create";
 import { CreateCard } from "../create/_components/create-card";
-import { auth } from "@/lib/auth";
 import { WorkoutsCarousel } from "./_components/workouts-carousel";
 import { ExercisesCarousel } from "./_components/exercises-carousel";
 import Link from "next/link";
 import { get10Exercises } from "@/actions/exercise";
 import { get10Workouts } from "@/actions/workout";
+import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Home",
 };
 
 export default async function HomePage() {
+  const session = await auth();
   const [firstWorkouts, firstExercises] = await Promise.all([
     get10Workouts(),
     get10Exercises(),

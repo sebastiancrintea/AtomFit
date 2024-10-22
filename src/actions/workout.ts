@@ -57,18 +57,18 @@ export const getWorkouts = async ({ searchParams }: getWorkoutParams) => {
 };
 
 export const get10Workouts = async () => {
-  const url = new URL(`${BASE_URL}/workouts?limit=10`);
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${BASE_URL}/workouts?limit=10`, {
       method: "GET",
       headers: await getAuthHeaders(),
       next: { revalidate: 0 },
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
+
     return data;
   } catch (error) {
-    return checkError(error);
+    return checkErrorNoToast(error);
   }
 };
 

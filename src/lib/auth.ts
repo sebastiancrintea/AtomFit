@@ -93,7 +93,6 @@ export const authOptions: NextAuthOptions = {
         const data = await userData.json();
         if (data.error) {
           signOut();
-          cookies().delete("access_token");
         }
         if (userData.ok) {
           session.user = data;

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import { Workout } from "@/types/workout";
 import { WorkoutCardCarousel } from "./workout-card";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -31,6 +31,8 @@ export function WorkoutsCarousel({ workouts }: Props) {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
+  const plugin = useRef(Autoplay({ delay: 7000, stopOnInteraction: true }));
   return (
     <>
       <Carousel
@@ -38,11 +40,7 @@ export function WorkoutsCarousel({ workouts }: Props) {
         opts={{
           loop: true,
         }}
-        plugins={[
-          Autoplay({
-            delay: 7000,
-          }),
-        ]}
+        plugins={[plugin.current as any]}
         className="h-full"
       >
         <CarouselContent>

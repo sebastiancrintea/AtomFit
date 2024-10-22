@@ -1,5 +1,5 @@
 import { getAuthHeaders } from "@/lib/authHeader";
-import { checkError, BASE_URL } from "@/lib/fetchUtils";
+import { checkError, BASE_URL, checkErrorNoToast } from "@/lib/fetchUtils";
 
 import { toast } from "sonner";
 
@@ -40,18 +40,18 @@ export const getExercises = async ({ searchParams }: getExercisesParams) => {
 };
 
 export const get10Exercises = async () => {
-  const url = new URL(`${BASE_URL}/exercises?limit=10`);
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${BASE_URL}/exercises?limit=10`, {
       method: "GET",
       headers: await getAuthHeaders(),
       next: { revalidate: 0 },
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);
+
     return data;
   } catch (error) {
-    return checkError(error);
+    return checkErrorNoToast(error);
   }
 };
 
