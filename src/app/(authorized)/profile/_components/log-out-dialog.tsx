@@ -40,8 +40,8 @@ export function LogOutDialog() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => {
-                signOut({
+              onClick={async () => {
+                await signOut({
                   callbackUrl: "/",
                   redirect: true,
                 });

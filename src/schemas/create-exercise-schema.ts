@@ -32,10 +32,15 @@ export const createExerciseSchema = z.object({
 
 export type createExerciseType = z.infer<typeof createExerciseSchema>;
 
+const links = [
+  "https://www.youtube.com/watch?v=d1YBv2mWll0",
+  "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+];
+
 export const createExerciseDefault = {
   name: "",
   description: "",
-  tutorial_link: "https://www.youtube.com/watch?v=d1YBv2mWll0",
+  tutorial_link: links[Math.floor(Math.random() * 2)],
   is_duration: undefined,
   muscles: [],
 };

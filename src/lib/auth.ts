@@ -92,7 +92,7 @@ export const authOptions: NextAuthOptions = {
         });
         const data = await userData.json();
         if (data.error) {
-          signOut();
+          await signOut();
         }
         if (userData.ok) {
           session.user = data;
