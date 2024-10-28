@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ReviewWorkoutForm } from "./_components/review-form";
+import Image from "next/image";
 
 type Props = {
   searchParams?: { start?: boolean };
@@ -24,6 +25,8 @@ type Props = {
 export default async function SingleWorkout({ searchParams, params }: Props) {
   const data: Workout = await getWorkoutById(+params.id);
   const workoutExercises = data.workout_exercises;
+  const video_id = data.tutorial_link.slice(32);
+  const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
   return (
     <>
       {searchParams?.start ? (
@@ -39,6 +42,12 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
       ) : (
         <section className="h-full w-full space-y-2 rounded-xl border-2 bg-popover p-2">
           <section className="relative aspect-video rounded-xl bg-secondary">
+            <Image
+              src={thumbnailUrl}
+              alt={data.name}
+              fill
+              className="h-auto max-w-full rounded-lg"
+            />
             <div className="absolute top-0 flex items-center gap-2 rounded-br-xl rounded-tl-xl bg-primary p-2">
               <NavigateBackButton />
               <h1 className="text-xl uppercase lg:text-4xl">

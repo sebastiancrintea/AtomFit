@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import {
   reviewWorkoutDefault,
@@ -70,6 +71,48 @@ export function ReviewWorkoutForm({ workoutId }: Props) {
                   <Textarea {...field} placeholder="Tell us your story" />
                 </FormControl>
                 <FormMessage className="text-base" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem className="space-y-2">
+                <FormLabel className="text-2xl font-semibold">
+                  Rate this workout!
+                </FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex items-center"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="all" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        All new messages
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="mentions" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Direct messages and mentions
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="none" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Nothing</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

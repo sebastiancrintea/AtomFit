@@ -2,7 +2,7 @@ import { getWorkouts } from "@/actions/workout";
 import { SearchBox } from "@/components/shared/search-box";
 import { Suspense } from "react";
 import { WorkoutCard } from "./_components/workout-card";
-import { Workout } from "@/types/workout";
+import { WorkoutPage } from "@/types/workout";
 import { PaginationComponent } from "@/components/shared/pagination/pagination";
 
 type Props = {
@@ -10,7 +10,8 @@ type Props = {
 };
 
 export default async function WorkoutsPage({ searchParams }: Props) {
-  const data: Workout[] = await getWorkouts({ searchParams });
+  const data: WorkoutPage = await getWorkouts({ searchParams });
+  console.log(data)
   return (
     <>
       <header className="sticky top-2 z-50 mb-2 flex items-center gap-2 rounded-xl bg-popover p-2">
@@ -21,10 +22,10 @@ export default async function WorkoutsPage({ searchParams }: Props) {
         </div>
       </header>
 
-      {data && data.length >= 1 ? (
+      {data && data.data.length >= 1 ? (
         <>
           <section className="mb-2 columns-[250px] space-y-2">
-            {data.map((workout, index) => (
+            {data.data.map((workout, index) => (
               <WorkoutCard key={index} workout={workout} />
             ))}
           </section>
@@ -32,7 +33,7 @@ export default async function WorkoutsPage({ searchParams }: Props) {
           <PaginationComponent />
         </>
       ) : (
-        <h3>No Exercises found</h3>
+        <h3>No Workout found</h3>
       )}
     </>
   );

@@ -124,6 +124,25 @@ export function CreateWorkoutForm({ exercises }: Props) {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="tutorial_link"
+            render={({ field }) => (
+              <FormItem className="space-y-0">
+                <FormLabel className="text-2xl font-semibold">
+                  Youtube Link
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Chest Beginner"
+                    className="text-base"
+                  />
+                </FormControl>
+                <FormMessage className="text-base" />
+              </FormItem>
+            )}
+          />
 
           <Dialog>
             <DialogTrigger asChild>

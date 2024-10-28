@@ -24,7 +24,7 @@ export default async function HomePage() {
       <section className="grid h-[95vh] gap-2 lg:grid-cols-2">
         <section className="rounded-xl border-2 bg-popover px-4 py-2">
           <h2 className="mb-2 font-mono uppercase">Popular workouts</h2>
-          <WorkoutsCarousel workouts={firstWorkouts} />
+          <WorkoutsCarousel workouts={firstWorkouts.data} />
         </section>
         <section className="row-span-2 hidden overflow-auto rounded-xl border-2 bg-popover lg:block">
           <Link href={"/create"}>

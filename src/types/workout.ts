@@ -15,3 +15,8 @@ export type Workout = {
     exercise: Exercise;
   }[];
 };
+
+export type WorkoutPage = {
+  data: Workout[];
+  total_count: number;
+};
