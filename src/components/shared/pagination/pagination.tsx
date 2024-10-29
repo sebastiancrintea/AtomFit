@@ -11,7 +11,11 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export function PaginationComponent() {
+type Props = {
+  total?: number;
+};
+
+export function PaginationComponent({ total }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = searchParams.get("page") ?? "1";
@@ -25,6 +29,7 @@ export function PaginationComponent() {
     router.push(`?${params.toString()}`);
   };
   const next = () => {
+    if (total && Math.ceil(total / +limit) < +page + 1) return;
     const params = new URLSearchParams(searchParams);
     params.set("page", `${+page + 1}`);
     params.set("limit", limit);
@@ -41,15 +46,17 @@ export function PaginationComponent() {
               onClick={prev}
             />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href={"?offset=1"}>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
+          {total &&
+            [...new Array(Math.ceil(total / +limit))].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink href={`?page=${index + 1}`}>
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
           <PaginationItem>
             <PaginationNext
-              className="cursor-pointer select-none"
+              className={`cursor-pointer select-none ${total && Math.ceil(total / +limit) < +page + 1 && "text-muted-foreground"}`}
               onClick={next}
             />
           </PaginationItem>

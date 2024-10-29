@@ -21,26 +21,27 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="grid h-[95vh] gap-2 lg:grid-cols-2">
-        <section className="rounded-xl border-2 bg-popover px-4 py-2">
-          <h2 className="mb-2 font-mono uppercase">Popular workouts</h2>
-          <WorkoutsCarousel workouts={firstWorkouts.data} />
+      <section className="h-full max-h-[95vh] gap-2 lg:grid lg:grid-cols-2">
+        <section className="flex flex-col gap-2">
+          <section className="flex-1 rounded-xl border-2 bg-popover p-4">
+            <h2 className="mb-2 font-mono uppercase">Popular workouts</h2>
+            <WorkoutsCarousel workouts={firstWorkouts.data} />
+          </section>
+          <section className="flex-1 rounded-xl border-2 bg-popover p-4">
+            <h2 className="mb-2 font-mono uppercase">Popular Exercises</h2>
+            <ExercisesCarousel exercises={firstExercises} />
+          </section>
         </section>
-        <section className="row-span-2 hidden overflow-auto rounded-xl border-2 bg-popover lg:block">
+        <section className="mt-1 h-full max-h-[95vh] rounded-xl lg:mt-0">
           <Link href={"/create"}>
             <CreateCard item={create[0]} />
           </Link>
         </section>
-        <section className="rounded-xl border-2 bg-popover">
-          <div className="px-4 py-2">
-            <h2 className="mb-2 font-mono uppercase">Popular Exercises</h2>
-            <ExercisesCarousel exercises={firstExercises} />
-          </div>
-        </section>
-        <Link href={"/create"} className="lg:hidden">
-          <CreateCard item={create[0]} />
-        </Link>
       </section>
+
+      {/* <Link href={"/create"} className="lg:hidden">
+          <CreateCard item={create[0]} />
+        </Link> */}
     </>
   );
 }

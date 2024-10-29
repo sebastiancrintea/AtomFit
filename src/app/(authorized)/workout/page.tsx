@@ -11,7 +11,7 @@ type Props = {
 
 export default async function WorkoutsPage({ searchParams }: Props) {
   const data: WorkoutPage = await getWorkouts({ searchParams });
-  console.log(data)
+  console.log(data);
   return (
     <>
       <header className="sticky top-2 z-50 mb-2 flex items-center gap-2 rounded-xl bg-popover p-2">
@@ -30,7 +30,7 @@ export default async function WorkoutsPage({ searchParams }: Props) {
             ))}
           </section>
 
-          <PaginationComponent />
+          <PaginationComponent total={data.total_count} />
         </>
       ) : (
         <h3>No Workout found</h3>

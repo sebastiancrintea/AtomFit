@@ -50,7 +50,7 @@ export function WorkoutsCarousel({ workouts }: Props) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="absolute -top-10 right-2 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">
+        <div className="absolute -top-12 right-2 flex items-center gap-1 rounded-full bg-popover p-1 opacity-80">
           <Button
             size={"icon"}
             variant={"ghost"}

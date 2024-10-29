@@ -28,8 +28,8 @@ export function ExercisesCardCarousel({ exercise }: Props) {
               <Image
                 src={thumbnailUrl}
                 alt={exercise.name}
-                width={600}
-                height={300}
+                width={400}
+                height={200}
                 className="mx-auto h-auto max-w-full rounded-lg"
               />
               {/* <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div> */}
