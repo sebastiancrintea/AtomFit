@@ -38,7 +38,7 @@ export function WorkoutCard({ workout }: Props) {
               <Badge>{workout.likes}</Badge>
               <span>likes</span>
             </div>
-            <LikeBtn workout_id={workout.id} />
+            <LikeBtn workout_id={workout.id} user_liked={workout.user_liked} />
           </div>
         </Card>
       </Link>

@@ -48,7 +48,11 @@ export function ExercisesCardCarousel({ exercise }: Props) {
                 {exercise.description}
               </CardDescription>
             </CardHeader>
-            <div className="flex justify-end">
+            <div className="flex items-center justify-between px-4 py-1 opacity-0 transition-all group-hover:opacity-100">
+              <div className="flex items-center gap-1">
+                <Badge>{exercise.like}</Badge>
+                <span>likes</span>
+              </div>
               <LikeBtn exercise_id={exercise.id} />
             </div>
           </Card>

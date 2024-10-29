@@ -38,10 +38,6 @@ export default async function HomePage() {
           </Link>
         </section>
       </section>
-
-      {/* <Link href={"/create"} className="lg:hidden">
-          <CreateCard item={create[0]} />
-        </Link> */}
     </>
   );
 }

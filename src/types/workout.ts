@@ -14,6 +14,7 @@ export type Workout = {
     duration: number;
     exercise: Exercise;
   }[];
+  user_liked: boolean;
 };
 
 export type WorkoutPage = {

@@ -128,3 +128,31 @@ export const getWorkoutReviews = async (workoutId: number) => {
     return checkErrorNoToast(error);
   }
 };
+
+export const likeWorkout = async (workout_id: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/workouts/${workout_id}/like`, {
+      method: "POST",
+      headers: await getAuthHeaders(),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};
+
+export const unLikeWorkout = async (workout_id: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/workouts/${workout_id}/like`, {
+      method: "DELETE",
+      headers: await getAuthHeaders(),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};

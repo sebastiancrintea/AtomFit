@@ -1,22 +1,32 @@
 "use client";
 
-import { likeExercise } from "@/actions/exercise";
+import { likeWorkout, unLikeWorkout } from "@/actions/workout";
 import { Button } from "@/components/ui/button";
-import { GoHeart } from "react-icons/go";
+import { useRouter } from "next/navigation";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
-export function LikeBtn({ workout_id }: { workout_id: number }) {
+export function LikeBtn({
+  workout_id,
+  user_liked,
+}: {
+  workout_id: number;
+  user_liked: boolean;
+}) {
+  const router = useRouter();
   return (
     <>
       <Button
         onClick={async (e) => {
           e.preventDefault();
-          await likeExercise(workout_id);
+          user_liked
+            ? await unLikeWorkout(workout_id)
+            : await likeWorkout(workout_id);
+          router.refresh();
         }}
         size={"icon"}
-        variant={"secondary"}
+        variant={"ghost"}
       >
-        <GoHeart size={28} />
-        {/* <GoHeartFill /> */}
+        {user_liked ? <GoHeartFill size={28} /> : <GoHeart size={28} />}
       </Button>
     </>
   );
