@@ -31,7 +31,6 @@ export function WorkoutCardCarousel({ workout }: Props) {
                 className="mx-auto h-auto max-w-full rounded-lg object-cover"
               />
             </div>
-            {/* <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div> */}
             <CardTitle>{workout.name}</CardTitle>
             <CardDescription>{workout.description}</CardDescription>
           </CardHeader>

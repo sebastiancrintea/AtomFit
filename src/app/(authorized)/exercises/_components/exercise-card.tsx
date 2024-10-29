@@ -31,14 +31,14 @@ export function ExerciseCard({ exercise }: Props) {
         <DialogTrigger asChild>
           <Card className="group relative w-[260px] cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:brightness-125">
             <CardHeader className="p-4 pb-1">
-              <Image
-                src={thumbnailUrl}
-                alt={exercise.name}
-                width={300}
-                height={300}
-                className="h-auto max-w-full rounded-lg"
-              />
-              {/* <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div> */}
+              <div className="relative mx-auto aspect-video w-full max-w-[300px] rounded-xl bg-secondary">
+                <Image
+                  src={thumbnailUrl}
+                  alt={exercise.name}
+                  fill
+                  className="h-auto max-w-full rounded-lg object-cover"
+                />
+              </div>
 
               <h2 className="overflow-hidden font-mono uppercase">
                 {exercise.name}
