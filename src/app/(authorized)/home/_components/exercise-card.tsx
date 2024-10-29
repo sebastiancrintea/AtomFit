@@ -21,42 +21,42 @@ export function ExercisesCardCarousel({ exercise }: Props) {
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Card className="group relative cursor-pointer overflow-hidden border-2 bg-popover transition-all hover:brightness-125">
-            <CardHeader className="p-4 pb-1">
-              <Image
-                src={thumbnailUrl}
-                alt={exercise.name}
-                width={400}
-                height={200}
-                className="mx-auto h-auto max-w-full rounded-lg"
-              />
-              {/* <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div> */}
+      {/* <Dialog>
+        <DialogTrigger asChild> */}
+      <Card className="group cursor-pointer border-2 bg-popover transition-all hover:brightness-125">
+        <CardHeader className="p-4 pb-1">
+          <div className="relative mx-auto aspect-video w-full max-w-[350px] rounded-xl bg-secondary">
+            <Image
+              src={thumbnailUrl}
+              alt={exercise.name}
+              fill
+              className="mx-auto h-auto max-w-full rounded-lg object-cover"
+            />
+          </div>
 
-              <h2 className="overflow-hidden font-mono uppercase">
-                {exercise.name}
-              </h2>
-              <div className="flex flex-wrap gap-1">
-                {exercise.muscles.map((muscle, index) => (
-                  <Badge key={index} className="uppercase">
-                    {muscle}
-                  </Badge>
-                ))}
-              </div>
-              <CardDescription className="font-semibold">
-                {exercise.description}
-              </CardDescription>
-            </CardHeader>
-            <div className="flex items-center justify-between px-4 py-1 opacity-0 transition-all group-hover:opacity-100">
-              <div className="flex items-center gap-1">
-                <Badge>{exercise.like}</Badge>
-                <span>likes</span>
-              </div>
-              <LikeBtn exercise_id={exercise.id} />
-            </div>
-          </Card>
-        </DialogTrigger>
+          <h2 className="overflow-hidden font-mono uppercase">
+            {exercise.name}
+          </h2>
+          <div className="flex flex-wrap gap-1">
+            {exercise.muscles.map((muscle, index) => (
+              <Badge key={index} className="uppercase">
+                {muscle}
+              </Badge>
+            ))}
+          </div>
+          <CardDescription className="font-semibold">
+            {exercise.description}
+          </CardDescription>
+        </CardHeader>
+        <div className="flex items-center justify-between px-4 py-1 opacity-0 transition-all group-hover:opacity-100">
+          <div className="flex items-center gap-1">
+            <Badge>{exercise.like}</Badge>
+            <span>likes</span>
+          </div>
+          <LikeBtn exercise_id={exercise.id} />
+        </div>
+      </Card>
+      {/* </DialogTrigger>
         <DialogContent className="md:min-w-[700px]">
           <DialogHeader>
             <DialogTitle className="text-3xl">{exercise.name}</DialogTitle>
@@ -74,7 +74,7 @@ export function ExercisesCardCarousel({ exercise }: Props) {
             <p>{exercise.description}</p>
           </section>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 }

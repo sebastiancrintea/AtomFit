@@ -41,7 +41,6 @@ export function WorkoutsCarousel({ workouts }: Props) {
           loop: true,
         }}
         plugins={[plugin.current as any]}
-        className="h-full"
       >
         <CarouselContent>
           {workouts.map((workout) => (

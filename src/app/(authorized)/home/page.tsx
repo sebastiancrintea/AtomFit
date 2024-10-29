@@ -21,13 +21,13 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="h-full max-h-[95vh] gap-2 lg:grid lg:grid-cols-2">
+      <section className="h-[95vh] gap-2 lg:grid lg:grid-cols-2">
         <section className="flex flex-col gap-2">
-          <section className="flex-1 rounded-xl border-2 bg-popover p-4">
+          <section className="flex-1 rounded-xl border-2 bg-popover p-2">
             <h2 className="mb-2 font-mono uppercase">Popular workouts</h2>
             <WorkoutsCarousel workouts={firstWorkouts.data} />
           </section>
-          <section className="flex-1 rounded-xl border-2 bg-popover p-4">
+          <section className="flex-1 rounded-xl border-2 bg-popover p-2">
             <h2 className="mb-2 font-mono uppercase">Popular Exercises</h2>
             <ExercisesCarousel exercises={firstExercises} />
           </section>

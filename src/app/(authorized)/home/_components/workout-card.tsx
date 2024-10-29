@@ -21,15 +21,16 @@ export function WorkoutCardCarousel({ workout }: Props) {
   return (
     <>
       <Link href={`/workout/${workout.id}`}>
-        <Card className="group bg-popover transition-all hover:brightness-125">
-          <CardHeader>
-            <Image
-              src={thumbnailUrl}
-              alt={workout.name}
-              width={400}
-              height={200}
-              className="mx-auto h-auto max-w-full rounded-lg"
-            />
+        <Card className="group cursor-pointer border-2 bg-popover transition-all hover:brightness-125">
+          <CardHeader className="p-4 pb-1">
+            <div className="relative mx-auto aspect-video w-full max-w-[350px] rounded-xl bg-secondary">
+              <Image
+                src={thumbnailUrl}
+                alt={workout.name}
+                fill
+                className="mx-auto h-auto max-w-full rounded-lg object-cover"
+              />
+            </div>
             {/* <div className="mx-auto aspect-square w-full max-w-[250px] rounded-xl bg-secondary"></div> */}
             <CardTitle>{workout.name}</CardTitle>
             <CardDescription>{workout.description}</CardDescription>
