@@ -3,6 +3,7 @@ import { Workout } from "@/types/workout";
 import Link from "next/link";
 import { LikeBtn } from "./like-btn";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   workout: Workout;
@@ -32,7 +33,11 @@ export function WorkoutCard({ workout }: Props) {
               {workout.description}
             </CardDescription>
           </CardHeader>
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between px-4 py-1 opacity-0 transition-all group-hover:opacity-100">
+            <div className="flex items-center gap-1">
+              <Badge>{workout.likes}</Badge>
+              <span>likes</span>
+            </div>
             <LikeBtn workout_id={workout.id} />
           </div>
         </Card>

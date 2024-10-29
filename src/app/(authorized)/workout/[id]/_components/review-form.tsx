@@ -20,8 +20,10 @@ import {
 } from "@/schemas/review-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
+import { GoStar, GoStarFill } from "react-icons/go";
 
 type Props = {
   workoutId: number;
@@ -41,6 +43,7 @@ export function ReviewWorkoutForm({ workoutId }: Props) {
     const body = { ...values, rating: parseInt(values.rating) };
     const data = await mutateAsync({ workoutId, body });
     if (data.error) return;
+    form.reset();
   };
   return (
     <>
@@ -76,7 +79,7 @@ export function ReviewWorkoutForm({ workoutId }: Props) {
           />
           <FormField
             control={form.control}
-            name="content"
+            name="rating"
             render={({ field }) => (
               <FormItem className="space-y-2">
                 <FormLabel className="text-2xl font-semibold">
@@ -86,29 +89,67 @@ export function ReviewWorkoutForm({ workoutId }: Props) {
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex items-center"
+                    className="flex items-center justify-center gap-4"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="all" />
+                        <RadioGroupItem value="1" className="hidden" />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        All new messages
+                      <FormLabel className="relative scale-95 cursor-pointer font-normal transition-all hover:scale-100">
+                        <GoStarFill
+                          size={32}
+                          className={`${parseInt(field.value) >= 1 ? "opacity-100" : "opacity-0"} transition-all`}
+                        />
+                        <GoStar size={32} className={`absolute left-0 top-0`} />
                       </FormLabel>
                     </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="mentions" />
+                        <RadioGroupItem value="2" className="hidden" />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        Direct messages and mentions
+                      <FormLabel className="relative scale-95 cursor-pointer font-normal transition-all hover:scale-100">
+                        <GoStarFill
+                          size={32}
+                          className={`${parseInt(field.value) >= 2 ? "opacity-100" : "opacity-0"} transition-all`}
+                        />
+                        <GoStar size={32} className={`absolute left-0 top-0`} />
                       </FormLabel>
                     </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="none" />
+                        <RadioGroupItem value="3" className="hidden" />
                       </FormControl>
-                      <FormLabel className="font-normal">Nothing</FormLabel>
+                      <FormLabel className="relative scale-95 cursor-pointer font-normal transition-all hover:scale-100">
+                        <GoStarFill
+                          size={32}
+                          className={`${parseInt(field.value) >= 3 ? "opacity-100" : "opacity-0"} transition-all`}
+                        />
+                        <GoStar size={32} className={`absolute left-0 top-0`} />
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="4" className="hidden" />
+                      </FormControl>
+                      <FormLabel className="relative scale-95 cursor-pointer font-normal transition-all hover:scale-100">
+                        <GoStarFill
+                          size={32}
+                          className={`${parseInt(field.value) >= 4 ? "opacity-100" : "opacity-0"} transition-all`}
+                        />
+                        <GoStar size={32} className={`absolute left-0 top-0`} />
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="5" className="hidden" />
+                      </FormControl>
+                      <FormLabel className="relative scale-95 cursor-pointer font-normal transition-all hover:scale-100">
+                        <GoStarFill
+                          size={32}
+                          className={`${parseInt(field.value) >= 5 ? "opacity-100" : "opacity-0"} transition-all`}
+                        />
+                        <GoStar size={32} className={`absolute left-0 top-0`} />
+                      </FormLabel>
                     </FormItem>
                   </RadioGroup>
                 </FormControl>

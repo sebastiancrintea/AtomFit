@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ExerciseCard } from "./_components/exercise-card";
 import { ExercisesCarousel } from "./_components/exercises-carousel";
 import Link from "next/link";
-import { getWorkoutById } from "@/actions/workout";
+import { getWorkoutById, getWorkoutReviews } from "@/actions/workout";
 import { Workout } from "@/types/workout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/dialog";
 import { ReviewWorkoutForm } from "./_components/review-form";
 import Image from "next/image";
+import { Exercise } from "@/types/exercise";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { GoStar, GoStarFill } from "react-icons/go";
 
 type Props = {
   searchParams?: { start?: boolean };
@@ -23,10 +26,14 @@ type Props = {
 };
 
 export default async function SingleWorkout({ searchParams, params }: Props) {
-  const data: Workout = await getWorkoutById(+params.id);
+  const [data, reviews] = await Promise.all([
+    getWorkoutById(+params.id),
+    getWorkoutReviews(+params.id),
+  ]);
   const workoutExercises = data.workout_exercises;
   const video_id = data.tutorial_link.slice(32);
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
+  console.log(reviews);
   return (
     <>
       {searchParams?.start ? (
@@ -110,7 +117,7 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
             <TabsContent value="exercises">
               <ul className="space-y-2">
                 {workoutExercises &&
-                  workoutExercises.map((exercise, index) => (
+                  workoutExercises.map((exercise: any, index: number) => (
                     <ExerciseCard
                       key={index}
                       exercise={exercise.exercise}
@@ -119,7 +126,45 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
                   ))}
               </ul>
             </TabsContent>
-            <TabsContent value="reviews">Reviews</TabsContent>
+            <TabsContent value="reviews">
+              {/* {JSON.stringify(reviews)} */}
+              <ul className="space-y-2">
+                {!reviews && <h3>No Reviews yet</h3>}
+                {reviews &&
+                  reviews.map((review: any, index: number) => (
+                    <li key={index} className="rounded-lg border-2 p-2">
+                      <div className="flex items-center gap-2">
+                        <Avatar>
+                          <AvatarFallback>
+                            {review.Username[0].toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-1">
+                          <h2 className="text-lg">@{review.Username}</h2>
+                          <ul className="flex items-center gap-2">
+                            {Array.from({ length: 5 }).map((_, index) => (
+                              <li key={index} className="relative">
+                                <GoStarFill
+                                  size={26}
+                                  className={`${review.rating >= index + 1 ? "opacity-100" : "opacity-0"} transition-all`}
+                                />
+                                <GoStar
+                                  size={26}
+                                  className={`absolute left-0 top-0`}
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="ml-4">
+                          <h3>{review.title}</h3>
+                          <p>{review.content}</p>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </TabsContent>
           </Tabs>
         </section>
       )}

@@ -110,6 +110,21 @@ export const reviewWorkout = async ({
     if (!response.ok) throw new Error(data.detail);
     return data;
   } catch (error) {
+    return checkError(error);
+  }
+};
+
+export const getWorkoutReviews = async (workoutId: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reviews/workout/${workoutId}`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+      cache: "no-store",
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+    return data;
+  } catch (error) {
     return checkErrorNoToast(error);
   }
 };

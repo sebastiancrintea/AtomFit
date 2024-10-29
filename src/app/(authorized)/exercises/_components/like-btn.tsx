@@ -13,7 +13,7 @@ export function LikeBtn({ exercise_id }: { exercise_id: number }) {
           await likeExercise(exercise_id);
         }}
         size={"icon"}
-        variant={"secondary"}
+        variant={"ghost"}
       >
         <GoHeart size={28} />
         {/* <GoHeartFill /> */}

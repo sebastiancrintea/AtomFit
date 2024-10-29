@@ -12,6 +12,7 @@ type Props = {
 
 export default async function ExercisesPage({ searchParams }: Props) {
   const data: Exercise[] = await getExercises({ searchParams });
+  console.log(data);
   return (
     <>
       <header className="sticky top-2 z-50 mb-2 flex items-center gap-2 rounded-xl bg-popover p-2">

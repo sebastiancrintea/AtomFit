@@ -8,4 +8,5 @@ export type Exercise = {
   tutorial_link: string;
   created_at: string;
   muscles: string[];
+  like: number;
 };
