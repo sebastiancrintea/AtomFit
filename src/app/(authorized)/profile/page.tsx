@@ -8,9 +8,45 @@ import { Metadata } from "next";
 import { SettingsDropdown } from "./_components/settings-dropdown";
 import { UpdateGoals } from "@/components/shared/update-goals/update-goals-dialog";
 import { auth } from "@/lib/auth";
-import { getCurrentWeight, getMacronutrients } from "@/actions/profile";
+import {
+  getCurrentWeight,
+  getMacronutrients,
+  getMyExercises,
+  getMyWorkouts,
+} from "@/actions/profile";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { WorkoutCard } from "../workout/_components/workout-card";
+import { ExerciseCard } from "../exercises/_components/exercise-card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { CiCircleCheck } from "react-icons/ci";
+import { Progress } from "@/components/ui/progress";
+import { SiReactivex } from "react-icons/si";
+import { FaDumbbell } from "react-icons/fa6";
+import { LiaDumbbellSolid } from "react-icons/lia";
+import { CiStar } from "react-icons/ci";
+import { GiHypersonicBolt } from "react-icons/gi";
+import { MdFeedback } from "react-icons/md";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { DeleteConfirm } from "./_components/delete-confirm";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -18,11 +54,15 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await auth();
+  if (!session) return;
 
-  const [currentWeight, macroNutrients] = await Promise.all([
-    getCurrentWeight(),
-    getMacronutrients(),
-  ]);
+  const [currentWeight, macroNutrients, myWorkouts, myExercises] =
+    await Promise.all([
+      getCurrentWeight(),
+      getMacronutrients(),
+      getMyWorkouts(session.user.id),
+      getMyExercises(session.user.id),
+    ]);
 
   return (
     <>
@@ -58,8 +98,17 @@ export default async function ProfilePage() {
           <TabsTrigger value="info" className="font-mono text-base uppercase">
             INFO
           </TabsTrigger>
-          <TabsTrigger value="items" className="font-mono text-base uppercase">
-            ITEMS
+          <TabsTrigger
+            value="workouts"
+            className="font-mono text-base uppercase"
+          >
+            WORKOUTS
+          </TabsTrigger>
+          <TabsTrigger
+            value="exercises"
+            className="font-mono text-base uppercase"
+          >
+            EXERCISES
           </TabsTrigger>
         </TabsList>
         <TabsContent value="info">
@@ -106,22 +155,141 @@ export default async function ProfilePage() {
                 <h4 className="font-mono uppercase">Achivements</h4>
               </div>
               <ScrollArea className="h-[70vh]">
-                {Array.from({ length: 20 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="mb-1 rounded-lg border-2 border-border bg-popover p-2"
-                  >
-                    <h3>First workout</h3>
-                    <span className="text-muted-foreground">
-                      Finish your first workout
-                    </span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <FaDumbbell size={42} />
+                      <div>
+                        <h3>First workout</h3>
+                        <span className="text-muted-foreground">
+                          Create your first workout
+                        </span>
+                        <Progress value={100} />
+                      </div>
+                    </div>
+                    <CiCircleCheck size={42} />
                   </div>
-                ))}
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <LiaDumbbellSolid size={42} />
+                      <div>
+                        <h3>First Exercise</h3>
+                        <span className="text-muted-foreground">
+                          Create your first exercise
+                        </span>
+                        <Progress value={0} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <SiReactivex size={42} />
+                      <div>
+                        <h3>Be Active</h3>
+                        <span className="text-muted-foreground">
+                          Complete your first workout
+                        </span>
+                        <Progress value={0} />
+                      </div>
+                    </div>
+                    {/* <CiCircleCheck size={42} /> */}
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <CiStar size={42} />
+                      <div>
+                        <h3>What a star</h3>
+                        <span className="text-muted-foreground">
+                          Gain 5 likes at one exercise
+                        </span>
+                        <Progress value={0} />
+                      </div>
+                    </div>
+                    {/* <CiCircleCheck size={42} /> */}
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <GiHypersonicBolt size={42} />
+                      <div>
+                        <h3>Become a legend</h3>
+                        <span className="text-muted-foreground">
+                          Gain 100 likes at one workout
+                        </span>
+                        <Progress value={0} />
+                      </div>
+                    </div>
+                    {/* <CiCircleCheck size={42} /> */}
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border-2 border-border bg-popover p-2">
+                    <div className="flex items-center gap-2">
+                      <MdFeedback size={42} />
+                      <div>
+                        <h3>Listen the community</h3>
+                        <span className="text-muted-foreground">
+                          Have at least 10 reviews at one workout
+                        </span>
+                        <Progress value={0} />
+                      </div>
+                    </div>
+                    {/* <CiCircleCheck size={42} /> */}
+                  </div>
+                </div>
               </ScrollArea>
             </div>
           </section>
         </TabsContent>
-        <TabsContent value="items">Items</TabsContent>
+        <TabsContent value="workouts">
+          <section className="mb-2 columns-[250px] space-y-2">
+            {myWorkouts.map((workout: any, index: number) => (
+              <div key={index} className="group relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"icon"}
+                      className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
+                    >
+                      <BsThreeDotsVertical />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>{workout.name}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DeleteConfirm type="workout" />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <WorkoutCard workout={workout} />
+              </div>
+            ))}
+          </section>
+        </TabsContent>
+        <TabsContent value="exercises">
+          <section className="mb-2 columns-[250px] space-y-2">
+            {myExercises.map((exercise: any, index: number) => (
+              <div key={index} className="group relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"icon"}
+                      className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
+                    >
+                      <BsThreeDotsVertical />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>{exercise.name}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DeleteConfirm type="exercise" />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <ExerciseCard key={index} exercise={exercise} />
+              </div>
+            ))}
+          </section>
+        </TabsContent>
       </Tabs>
     </>
   );

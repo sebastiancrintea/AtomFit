@@ -95,3 +95,35 @@ export const getMacronutrients = async () => {
     return checkErrorNoToast(error);
   }
 };
+
+export const getMyWorkouts = async (user_id: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/workouts/${user_id}`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+      next: { revalidate: 3600 },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};
+
+export const getMyExercises = async (user_id: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/exercises/${user_id}`, {
+      method: "GET",
+      headers: await getAuthHeaders(),
+      next: { revalidate: 3600 },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+
+    return data;
+  } catch (error) {
+    return checkErrorNoToast(error);
+  }
+};

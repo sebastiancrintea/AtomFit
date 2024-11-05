@@ -30,10 +30,11 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
     getWorkoutById(+params.id),
     getWorkoutReviews(+params.id),
   ]);
+  console.log(data);
   const workoutExercises = data.workout_exercises;
-  const video_id = data.tutorial_link.slice(32);
+  // const video_id = data.tutorial_link.slice(32);
+  const video_id = 231;
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
-  console.log(reviews);
   return (
     <>
       {searchParams?.start ? (
