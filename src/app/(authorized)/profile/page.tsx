@@ -35,18 +35,8 @@ import { LiaDumbbellSolid } from "react-icons/lia";
 import { CiStar } from "react-icons/ci";
 import { GiHypersonicBolt } from "react-icons/gi";
 import { MdFeedback } from "react-icons/md";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { DeleteConfirm } from "./_components/delete-confirm";
+import { MdEdit } from "react-icons/md";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -152,7 +142,7 @@ export default async function ProfilePage() {
             )}
             <div className="flex-1 rounded-lg border-2 border-border p-2">
               <div className="mb-2 rounded-lg border-2 border-border bg-card p-2">
-                <h4 className="font-mono uppercase">Achivements</h4>
+                <h4 className="font-mono uppercase">Achievements</h4>
               </div>
               <ScrollArea className="h-[70vh]">
                 <div className="flex flex-col gap-1">
@@ -255,7 +245,10 @@ export default async function ProfilePage() {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>{workout.name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <MdEdit className="mr-1" />
+                      Edit
+                    </DropdownMenuItem>
                     <DeleteConfirm type="workout" />
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -281,7 +274,10 @@ export default async function ProfilePage() {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>{exercise.name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <MdEdit className="mr-1" />
+                      Edit
+                    </DropdownMenuItem>
                     <DeleteConfirm type="exercise" />
                   </DropdownMenuContent>
                 </DropdownMenu>

@@ -20,8 +20,10 @@ export function CreateCard({ item }: Props) {
       />
       <section className="relative flex h-full flex-col justify-between px-4 py-2">
         <div className="space-y-1">
-          <h2 className="text-6xl font-extrabold">{item.title}</h2>
-          <p className="text-muted-foreground">{item.description}</p>
+          <h2 className="text-6xl font-extrabold text-primary-foreground">
+            {item.title}
+          </h2>
+          <p className="text-muted-foreground text-lg">{item.description}</p>
         </div>
         <Button variant={"outline"} size={"icon"} className="ml-auto">
           <FaArrowRight />

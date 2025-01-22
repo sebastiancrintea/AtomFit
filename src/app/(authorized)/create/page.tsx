@@ -18,6 +18,7 @@ type Props = {
 };
 export default async function CreatePage({ searchParams }: Props) {
   const data: Exercise[] = await getExercises({ searchParams });
+  // const data: Exercise[] = [] 
 
   return (
     <>

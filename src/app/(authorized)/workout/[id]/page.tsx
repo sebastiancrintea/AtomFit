@@ -32,8 +32,7 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
   ]);
   console.log(data);
   const workoutExercises = data.workout_exercises;
-  // const video_id = data.tutorial_link.slice(32);
-  const video_id = 231;
+  const video_id = data.tutorial_link.slice(32);
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
   return (
     <>
@@ -41,7 +40,7 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
         <>
           <header className="flex items-center gap-2">
             <NavigateBackButton />
-            <h1 className="text-xl uppercase lg:text-4xl">
+            <h1 className="text-xl uppercase text-white lg:text-4xl">
               {data ? data.name : "Workout Title"}
             </h1>
           </header>
@@ -58,12 +57,12 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
             />
             <div className="absolute top-0 flex items-center gap-2 rounded-br-xl rounded-tl-xl bg-primary p-2">
               <NavigateBackButton />
-              <h1 className="text-xl uppercase lg:text-4xl">
+              <h1 className="text-xl uppercase text-white lg:text-4xl">
                 {data ? data.name : "Workout Title"}
               </h1>
             </div>
             <div className="absolute bottom-2 left-2 hidden border-l-4 border-primary p-2 sm:block">
-              <h4 className="font-mono">
+              <h4 className="font-mono text-white">
                 {workoutExercises && workoutExercises.length} Exercises |{" "}
                 {data.likes} Likes
               </h4>

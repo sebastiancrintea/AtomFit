@@ -51,12 +51,12 @@ export function ExercisesCarousel({ exercises }: Props) {
             <h3 className="text-center">
               Congratulations on crushing your workout!
             </h3>
-            <p>
+            <p className="text-center">
               Your hard work and dedication are paying off keep up the amazing
               effort! Every step forward brings you closer to your goals. Keep
               shining!
             </p>
-            <Link href={"/workout"}>
+            <Link href={"#"}>
               <Button>Finish</Button>
             </Link>
           </CarouselItem>

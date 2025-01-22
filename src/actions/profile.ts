@@ -98,7 +98,7 @@ export const getMacronutrients = async () => {
 
 export const getMyWorkouts = async (user_id: number) => {
   try {
-    const response = await fetch(`${BASE_URL}/workouts/${user_id}`, {
+    const response = await fetch(`${BASE_URL}/workouts/user/${user_id}`, {
       method: "GET",
       headers: await getAuthHeaders(),
       next: { revalidate: 3600 },

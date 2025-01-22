@@ -83,7 +83,7 @@ export function LaptopNavigaton() {
                     <AvatarFallback>
                       {session.status === "authenticated"
                         ? `${session.data.user.username[0].toUpperCase()}`
-                        : "CN"}
+                        : "CS"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden xl:block">
@@ -94,12 +94,12 @@ export function LaptopNavigaton() {
                     >
                       {session.status === "authenticated"
                         ? `${session.data.user.email}`
-                        : "Crintea Sebastiansnahkdbwahdbhawdhbahdbhsahdbhahd"}
+                        : "Crintea Sebastian"}
                     </h2>
                     <span className="text-sm text-muted-foreground opacity-75">
                       {session.status === "authenticated"
                         ? `@${session.data?.user.username}`
-                        : "@testing"}
+                        : "@sshebastian"}
                     </span>
                   </div>
                 </Link>

@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { FaTrash } from "react-icons/fa6";
 
 type Props = {
   type: "exercise" | "workout";
@@ -21,7 +22,11 @@ export function DeleteConfirm({ type }: Props) {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+          <DropdownMenuItem
+            onSelect={(e) => e.preventDefault()}
+            className="text-destructive"
+          >
+            <FaTrash className="mr-1" />
             Delete
           </DropdownMenuItem>
         </AlertDialogTrigger>

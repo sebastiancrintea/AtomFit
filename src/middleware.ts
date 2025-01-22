@@ -4,10 +4,6 @@ export const config = {
   matcher: [
     "/protected/:path*",
     "/protected",
-    "/home",
-    "/workout",
-    "/create",
-    "/exercises",
-    "/profile",
+
   ],
 };
