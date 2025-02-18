@@ -16,10 +16,12 @@ import {
 } from "@/schemas/update-current-weight-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 
 export function UpdateCurrentWeightForm() {
+  const router = useRouter();
   const form = useForm<updateWeightType>({
     resolver: zodResolver(updateWeightSchema),
     defaultValues: updateWeightDefault,
@@ -34,6 +36,7 @@ export function UpdateCurrentWeightForm() {
       weight: parseFloat(values.weight),
     };
     const data = await mutateAsync(body);
+    router.refresh();
     if (data.error) return;
   };
   return (

@@ -56,7 +56,7 @@ export function ExercisesCarousel({ exercises }: Props) {
               effort! Every step forward brings you closer to your goals. Keep
               shining!
             </p>
-            <Link href={"#"}>
+            <Link href={"/workout"}>
               <Button>Finish</Button>
             </Link>
           </CarouselItem>

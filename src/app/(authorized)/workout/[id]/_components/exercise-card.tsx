@@ -27,9 +27,9 @@ export function ExerciseCard({ exercise, duration }: Props) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className="flex items-center gap-1 rounded-xl border-2 p-2"
+      className="flex items-center gap-1 rounded-xl border-2 px-4 py-2"
     >
-      <MdDragIndicator size={32} />
+      {/* <MdDragIndicator size={32} /> */}
 
       <Dialog>
         <DialogTrigger asChild>

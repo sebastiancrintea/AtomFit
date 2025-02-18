@@ -43,7 +43,7 @@ export function GoalChart({ goal, start, finish, current }: Props) {
     },
     goal: {
       label: "Lose",
-      color: "hsl(var(--chart-1))",
+      color: "hsl(var(--chart-5))",
     },
   } satisfies ChartConfig;
 

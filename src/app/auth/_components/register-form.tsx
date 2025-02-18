@@ -101,7 +101,6 @@ export function RegisterForm() {
       setError(response.error);
       return setTimeout(() => setError(null), 10000);
     }
-    console.log(body);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { getAuthHeaders } from "@/lib/authHeader";
 import { BASE_URL, checkError, checkErrorNoToast } from "@/lib/fetchUtils";
+import { revalidateTag } from "next/cache";
 import { toast } from "sonner";
 
 type createWorkoutParams = {
@@ -52,7 +53,7 @@ export const getWorkouts = async ({ searchParams }: getWorkoutParams) => {
     if (!response.ok) throw new Error(data.detail);
     return data;
   } catch (error) {
-    return checkError(error);
+    // return checkError(error);
   }
 };
 
@@ -120,6 +121,7 @@ export const getWorkoutReviews = async (workoutId: number) => {
       method: "GET",
       headers: await getAuthHeaders(),
       cache: "no-store",
+      next: { tags: ["reviews"] },
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail);

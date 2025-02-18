@@ -25,7 +25,7 @@ export const updateCurrentWeight = async ({ weight }: { weight: number }) => {
     toast.success(data.success);
     return data;
   } catch (error) {
-    return checkError(error);
+    return error;
   }
 };
 

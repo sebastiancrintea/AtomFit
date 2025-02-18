@@ -19,6 +19,7 @@ import Image from "next/image";
 import { Exercise } from "@/types/exercise";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { GoStar, GoStarFill } from "react-icons/go";
+import { auth } from "@/lib/auth";
 
 type Props = {
   searchParams?: { start?: boolean };
@@ -26,11 +27,11 @@ type Props = {
 };
 
 export default async function SingleWorkout({ searchParams, params }: Props) {
+  const session = await auth();
   const [data, reviews] = await Promise.all([
     getWorkoutById(+params.id),
     getWorkoutReviews(+params.id),
   ]);
-  console.log(data);
   const workoutExercises = data.workout_exercises;
   const video_id = data.tutorial_link.slice(32);
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
@@ -132,7 +133,10 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
                 {!reviews && <h3>No Reviews yet</h3>}
                 {reviews &&
                   reviews.map((review: any, index: number) => (
-                    <li key={index} className="rounded-lg border-2 p-2">
+                    <li
+                      key={index}
+                      className="flex items-center justify-between rounded-lg border-2 p-2"
+                    >
                       <div className="flex items-center gap-2">
                         <Avatar>
                           <AvatarFallback>
@@ -161,6 +165,9 @@ export default async function SingleWorkout({ searchParams, params }: Props) {
                           <p>{review.content}</p>
                         </div>
                       </div>
+                      {review.user_id === session?.user.id && (
+                        <Button variant={"outline"}>Delete</Button>
+                      )}
                     </li>
                   ))}
               </ul>

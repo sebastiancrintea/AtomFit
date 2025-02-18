@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const session = await auth();
+  if (!session) return;
+  // console.log(session)
   const [firstWorkouts, firstExercises] = await Promise.all([
     get10Workouts(),
     get10Exercises(),

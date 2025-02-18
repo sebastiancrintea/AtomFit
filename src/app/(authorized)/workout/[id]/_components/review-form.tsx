@@ -30,6 +30,7 @@ type Props = {
 };
 
 export function ReviewWorkoutForm({ workoutId }: Props) {
+  const router = useRouter();
   const form = useForm<reviewWorkoutType>({
     resolver: zodResolver(reviewWorkoutSchema),
     defaultValues: reviewWorkoutDefault,
@@ -42,6 +43,8 @@ export function ReviewWorkoutForm({ workoutId }: Props) {
   const onSubmit = async (values: reviewWorkoutType) => {
     const body = { ...values, rating: parseInt(values.rating) };
     const data = await mutateAsync({ workoutId, body });
+    router.refresh();
+
     if (data.error) return;
     form.reset();
   };

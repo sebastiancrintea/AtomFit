@@ -25,9 +25,10 @@ export const register = async (body: registerParams) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data);
 
-    toast.success(data.success);
+    toast.success("You registered with success!");
     return data;
   } catch (error) {
+    console.log(error);
     return checkError(error);
   }
 };

@@ -23,6 +23,7 @@ type Props = {
 };
 
 export function ExerciseCard({ exercise }: Props) {
+  console.log(exercise);
   const video_id = exercise.tutorial_link.slice(32);
   const thumbnailUrl = `https://img.youtube.com/vi/${video_id}/maxresdefault.jpg`;
   return (

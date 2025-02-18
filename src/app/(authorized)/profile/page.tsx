@@ -230,60 +230,62 @@ export default async function ProfilePage() {
         </TabsContent>
         <TabsContent value="workouts">
           <section className="mb-2 columns-[250px] space-y-2">
-            {myWorkouts.map((workout: any, index: number) => (
-              <div key={index} className="group relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      size={"icon"}
-                      className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
-                    >
-                      <BsThreeDotsVertical />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>{workout.name}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <MdEdit className="mr-1" />
-                      Edit
-                    </DropdownMenuItem>
-                    <DeleteConfirm type="workout" />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <WorkoutCard workout={workout} />
-              </div>
-            ))}
+            {myWorkouts &&
+              myWorkouts.map((workout: any, index: number) => (
+                <div key={index} className="group relative">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        size={"icon"}
+                        className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
+                      >
+                        <BsThreeDotsVertical />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>{workout.name}</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <MdEdit className="mr-1" />
+                        Edit
+                      </DropdownMenuItem>
+                      <DeleteConfirm type="workout" />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <WorkoutCard workout={workout} />
+                </div>
+              ))}
           </section>
         </TabsContent>
         <TabsContent value="exercises">
           <section className="mb-2 columns-[250px] space-y-2">
-            {myExercises.map((exercise: any, index: number) => (
-              <div key={index} className="group relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      size={"icon"}
-                      className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
-                    >
-                      <BsThreeDotsVertical />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>{exercise.name}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <MdEdit className="mr-1" />
-                      Edit
-                    </DropdownMenuItem>
-                    <DeleteConfirm type="exercise" />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <ExerciseCard key={index} exercise={exercise} />
-              </div>
-            ))}
+            {myExercises &&
+              myExercises.map((exercise: any, index: number) => (
+                <div key={index} className="group relative">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        size={"icon"}
+                        className="absolute right-2 top-2 z-50 opacity-0 transition-all group-hover:opacity-100"
+                      >
+                        <BsThreeDotsVertical />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>{exercise.name}</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <MdEdit className="mr-1" />
+                        Edit
+                      </DropdownMenuItem>
+                      <DeleteConfirm type="exercise" />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <ExerciseCard key={index} exercise={exercise} />
+                </div>
+              ))}
           </section>
         </TabsContent>
       </Tabs>
